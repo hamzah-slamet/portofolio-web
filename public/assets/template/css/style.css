@@ -1,0 +1,319 @@
+.welcome-banner {
+    background: linear-gradient(130deg, #2563eb 0%, #1d4ed8 60%, #1e40af 100%);
+    border-radius: 18px;
+    padding: 28px 32px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 28px;
+}
+
+.welcome-banner::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: 180px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .06);
+}
+
+.welcome-banner::after {
+    content: '';
+    position: absolute;
+    bottom: -60px;
+    right: -30px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .05);
+}
+
+.welcome-text h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+
+.welcome-text p {
+    font-size: .875rem;
+    opacity: .85;
+    margin: 0;
+}
+
+.welcome-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 18px;
+    border-radius: 10px;
+    font-size: .85rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all .18s;
+}
+
+.welcome-btn.white {
+    background: rgba(255, 255, 255, .95);
+    color: #2563eb;
+}
+
+.welcome-btn.white:hover {
+    background: white;
+}
+
+/* Project rows */
+.project-thumb {
+    width: 40px;
+    height: 40px;
+    background: var(--blue-light);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--blue);
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.project-title {
+    font-size: .875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.project-meta {
+    font-size: .75rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.tech-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    background: var(--blue-light);
+    color: var(--blue);
+    border-radius: 6px;
+    font-size: .68rem;
+    font-weight: 600;
+}
+
+/* Skill bar */
+.skill-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.skill-row:last-child {
+    border-bottom: none;
+}
+
+.skill-name {
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    min-width: 100px;
+}
+
+.skill-bar {
+    flex: 1;
+    height: 7px;
+    background: var(--blue-light);
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.skill-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #2563eb, #60a5fa);
+    border-radius: 99px;
+}
+
+.skill-pct {
+    font-size: .75rem;
+    font-weight: 700;
+    color: var(--blue);
+    min-width: 36px;
+    text-align: right;
+}
+
+/* Quick actions */
+.quick-action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+    color: var(--text-secondary);
+    font-size: .82rem;
+    font-weight: 600;
+    transition: all .2s;
+    text-align: center;
+}
+
+.quick-action.clickable {
+    cursor: pointer;
+}
+
+.quick-action.clickable:hover {
+    background: var(--blue-light);
+    border-color: var(--blue-soft);
+    color: var(--blue);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(37, 99, 235, .12);
+}
+
+.quick-action i {
+    font-size: 1.6rem;
+    color: var(--blue);
+}
+
+.quick-action.disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+.quick-action.disabled i {
+    color: var(--text-muted);
+}
+/* ============================================================ */
+/* PROJECT ROW                                                  */
+/* ============================================================ */
+.project-row-inner {
+    min-height: 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.project-thumb {
+    width: 42px;
+    height: 42px;
+    background: var(--blue-light);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--blue);
+    font-size: 1.1rem;
+}
+
+.project-title {
+    font-size: .875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+}
+
+.project-meta {
+    font-size: .75rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.5;
+}
+
+.tech-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    background: var(--blue-light);
+    color: var(--blue);
+    border-radius: 6px;
+    font-size: .68rem;
+    font-weight: 600;
+}
+
+/* ============================================================ */
+/* SKILL BAR                                                    */
+/* ============================================================ */
+.skill-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.skill-row:last-of-type {
+    border-bottom: none;
+}
+
+.skill-name {
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    min-width: 90px;
+}
+
+.skill-bar {
+    flex: 1;
+    height: 7px;
+    background: var(--blue-light);
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.skill-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #2563eb, #60a5fa);
+    border-radius: 99px;
+    transition: width .4s ease;
+}
+
+.skill-pct {
+    font-size: .75rem;
+    font-weight: 700;
+    color: var(--blue);
+    min-width: 36px;
+    text-align: right;
+}
+
+/* ============================================================ */
+/* EXPERIENCE                                                   */
+/* ============================================================ */
+.exp-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.exp-position {
+    font-size: .82rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.exp-company {
+    font-size: .75rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+.project-meta {
+    font-size: .75rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+    line-height: 1.6;
+    text-align: justify;
+    /* hapus -webkit-line-clamp agar tampil semua */
+}
