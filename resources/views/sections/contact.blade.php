@@ -20,7 +20,7 @@
                         <div class="icon-box"><i class="bi bi-geo-alt"></i></div>
                         <div class="content">
                             <h4>Location</h4>
-                            <p>Jakarta, Indonesia</p>
+                            <p>{{ $config->contact_location ?? 'Indonesia' }}</p>
                         </div>
                     </div>
 
@@ -28,7 +28,7 @@
                         <div class="icon-box"><i class="bi bi-telephone"></i></div>
                         <div class="content">
                             <h4>Phone Number</h4>
-                            <p>+62 812 3456 7890</p>
+                            <p>{{ $config->contact_phone ?? '-' }}</p>
                         </div>
                     </div>
 
@@ -36,7 +36,7 @@
                         <div class="icon-box"><i class="bi bi-envelope"></i></div>
                         <div class="content">
                             <h4>Email Address</h4>
-                            <p>hamzah@example.com</p>
+                            <p>{{ $config->contact_email ?? $user->email }}</p>
                         </div>
                     </div>
                 </div>

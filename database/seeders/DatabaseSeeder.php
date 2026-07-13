@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        // Buat portfolio config (published) untuk user di atas
+        // Buat portfolio config (published) + menu navbar default untuk user di atas
         $this->call(PortfolioConfigSeeder::class);
+        $this->call(MenuItemSeeder::class);
     }
 }

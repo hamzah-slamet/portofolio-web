@@ -34,26 +34,15 @@
                 </div>
             @endif
 
-            {{-- Flash Messages --}}
-            @if(session('success'))
-                <div class="alert-flash alert-flash-success" id="flash-success" role="alert">
-                    <i class="bi bi-check-circle-fill me-2"></i>
-                    {{ session('success') }}
-                    <button type="button" class="flash-close" onclick="this.parentElement.remove()">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </div>
-            @endif
-
-            @if(session('error'))
-                <div class="alert-flash alert-flash-danger" id="flash-error" role="alert">
-                    <i class="bi bi-exclamation-circle-fill me-2"></i>
-                    {{ session('error') }}
-                    <button type="button" class="flash-close" onclick="this.parentElement.remove()">
-                        <i class="bi bi-x-lg"></i>
-                    </button>
-                </div>
-            @endif
+            {{-- Flash Messages (Toast global) --}}
+            <div class="app-toast-container">
+                @if(session('success'))
+                    <x-toast type="success" :message="session('success')" />
+                @endif
+                @if(session('error'))
+                    <x-toast type="error" :message="session('error')" />
+                @endif
+            </div>
 
             @yield('content')
         </main>
@@ -155,16 +144,7 @@
     @stack('scripts')
 
     <script>
-        // ── Flash message auto dismiss ────────────────────────────
-        ['flash-success', 'flash-error'].forEach(function(id) {
-            const el = document.getElementById(id);
-            if (!el) return;
-            setTimeout(function() {
-                el.style.transition = 'opacity .5s ease';
-                el.style.opacity = '0';
-                setTimeout(() => el.remove(), 500);
-            }, 3000);
-        });
+        // ── Toast: lihat komponen resources/views/components/toast.blade.php ──
 
         // ── Portfolio Drawer ──────────────────────────────────────
         const PORTFOLIO_URL = '{{ url('/') }}';

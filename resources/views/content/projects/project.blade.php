@@ -64,7 +64,7 @@
     </a>
     <a href="{{ route('projects.index', ['filter' => 'featured']) }}"
        class="filter-btn {{ request('filter') === 'featured' ? 'active' : '' }}">
-        ⭐ Featured
+        <i class="bi bi-pin-angle-fill me-1"></i> Featured
     </a>
     @foreach($techTags as $tag)
     <a href="{{ route('projects.index', ['tech' => $tag]) }}"
@@ -115,7 +115,7 @@
                 @endif
                 @if($project->is_featured)
                     <div class="featured-ribbon">
-                        <i class="bi bi-star-fill" style="font-size:.6rem;"></i> Featured
+                        <i class="bi bi-pin-angle-fill" style="font-size:.6rem;"></i> Featured
                     </div>
                 @endif
             </div>

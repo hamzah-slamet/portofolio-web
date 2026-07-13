@@ -6,95 +6,38 @@
         <p>Professional certifications and achievements that validate my skills and expertise</p>
     </div>
 
-    <div class="container">
-
-        <div class="d-flex justify-content-center">
-            <ul class="nav nav-tabs" data-aos="fade-up" data-aos-delay="100">
-                <li class="nav-item">
-                    <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#cert-tab-1">
-                        <h4>Web Dev</h4>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#cert-tab-2">
-                        <h4>Design</h4>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" data-bs-target="#cert-tab-3">
-                        <h4>Cloud</h4>
-                    </a>
-                </li>
-            </ul>
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row g-4">
+            @forelse($certificates as $cert)
+                <div class="col-md-6 col-lg-4" data-aos="fade-up">
+                    <div class="h-100 p-4 rounded-4" style="background:#fff; border:1px solid rgba(0,0,0,.08); box-shadow:0 4px 20px rgba(0,0,0,.04);">
+                        @if($cert->image)
+                            <img src="{{ \Illuminate\Support\Facades\Storage::url($cert->image) }}"
+                                 alt="{{ $cert->title }}" class="img-fluid rounded-3 mb-3" style="width:100%; height:160px; object-fit:cover;">
+                        @else
+                            <div class="d-flex align-items-center justify-content-center rounded-3 mb-3"
+                                 style="width:100%; height:120px; background:#eff6ff; color:#2563eb;">
+                                <i class="bi bi-patch-check-fill" style="font-size:2.4rem;"></i>
+                            </div>
+                        @endif
+                        <h5 class="mb-1" style="font-weight:700;">{{ $cert->title }}</h5>
+                        <p class="mb-2 text-muted" style="font-size:.9rem;">
+                            {{ $cert->issuer }} @if($cert->year) · {{ $cert->year }} @endif
+                        </p>
+                        @if($cert->url)
+                            <a href="{{ $cert->url }}" target="_blank" rel="noopener" class="read-more">
+                                Lihat kredensial <i class="bi bi-arrow-right"></i>
+                            </a>
+                        @endif
+                    </div>
+                </div>
+            @empty
+                <div class="col-12 text-center py-5">
+                    <i class="bi bi-patch-check fs-1 text-muted"></i>
+                    <p class="text-muted mt-3">Belum ada sertifikat.</p>
+                </div>
+            @endforelse
         </div>
-
-        <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
-
-            {{-- Tab 1: Web Development --}}
-            <div class="tab-pane fade active show" id="cert-tab-1">
-                <div class="row">
-                    <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center">
-                        <h3>Web Development Certifications</h3>
-                        <p class="fst-italic">
-                            Certified in modern web development technologies and frameworks,
-                            demonstrating expertise in building production-ready applications.
-                        </p>
-                        <ul>
-                            <li><i class="bi bi-check2-all"></i> <span>Laravel Certified Developer — Passed with distinction</span></li>
-                            <li><i class="bi bi-check2-all"></i> <span>PHP 8.x Professional — Zend Certified Engineer</span></li>
-                            <li><i class="bi bi-check2-all"></i> <span>JavaScript ES6+ Certification — Full-Stack JavaScript Mastery</span></li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-6 order-1 order-lg-2 text-center">
-                        <img src="{{ asset('assets/Home/img/features-illustration-1.webp') }}" alt="Web Dev Certificate" class="img-fluid">
-                    </div>
-                </div>
-            </div>
-
-            {{-- Tab 2: Design --}}
-            <div class="tab-pane fade" id="cert-tab-2">
-                <div class="row">
-                    <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center">
-                        <h3>UI/UX Design Certifications</h3>
-                        <p class="fst-italic">
-                            Trained in user-centered design principles and modern design tools
-                            to create intuitive and visually compelling interfaces.
-                        </p>
-                        <ul>
-                            <li><i class="bi bi-check2-all"></i> <span>Google UX Design Certificate — Coursera</span></li>
-                            <li><i class="bi bi-check2-all"></i> <span>Figma Advanced Design — UI/UX Specialization</span></li>
-                            <li><i class="bi bi-check2-all"></i> <span>Responsive Web Design — freeCodeCamp</span></li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-6 order-1 order-lg-2 text-center">
-                        <img src="{{ asset('assets/Home/img/features-illustration-2.webp') }}" alt="Design Certificate" class="img-fluid">
-                    </div>
-                </div>
-            </div>
-
-            {{-- Tab 3: Cloud --}}
-            <div class="tab-pane fade" id="cert-tab-3">
-                <div class="row">
-                    <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0 d-flex flex-column justify-content-center">
-                        <h3>Cloud & DevOps Certifications</h3>
-                        <ul>
-                            <li><i class="bi bi-check2-all"></i> <span>AWS Cloud Practitioner — Amazon Web Services</span></li>
-                            <li><i class="bi bi-check2-all"></i> <span>Docker & Kubernetes — Container Orchestration</span></li>
-                            <li><i class="bi bi-check2-all"></i> <span>Linux Administration — Red Hat Certified</span></li>
-                        </ul>
-                        <p class="fst-italic">
-                            Experienced in deploying and managing applications on cloud infrastructure
-                            with CI/CD pipelines and containerized environments.
-                        </p>
-                    </div>
-                    <div class="col-lg-6 order-1 order-lg-2 text-center">
-                        <img src="{{ asset('assets/Home/img/features-illustration-3.webp') }}" alt="Cloud Certificate" class="img-fluid">
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
     </div>
 
 </section>

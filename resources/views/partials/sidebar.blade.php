@@ -41,6 +41,11 @@
             Pendidikan
         </span>
 
+        <span class="sidebar-nav-item" style="cursor:pointer;" onclick="window.location='{{ route('certificates.index') }}'">
+            <i class="bi bi-patch-check-fill"></i>
+            Sertifikat
+        </span>
+
         <span class="sidebar-nav-item" style="cursor:pointer;"
             onclick="window.location='{{ route('experiences.index') }}'">
             <i class="bi bi-briefcase-fill"></i>
@@ -58,6 +63,16 @@
         </span>
 
         <div class="sidebar-section-label">Pengaturan</div>
+
+        <span class="sidebar-nav-item" style="cursor:pointer;" onclick="window.location='{{ route('settings.edit') }}'">
+            <i class="bi bi-sliders"></i>
+            Pengaturan Portfolio
+        </span>
+
+        <span class="sidebar-nav-item" style="cursor:pointer;" onclick="window.location='{{ route('menus.index') }}'">
+            <i class="bi bi-menu-button-wide-fill"></i>
+            Menu Navbar
+        </span>
 
         <span class="sidebar-nav-item" style="cursor:pointer;" onclick="window.location='{{ route('profile.show') }}'">
             <i class="bi bi-person-circle"></i>

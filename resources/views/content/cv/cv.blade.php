@@ -483,7 +483,7 @@
 
                 <div class="cv-header-info">
                     <div class="cv-name">{{ $user->name }}</div>
-                    <div class="cv-title">Full Stack Developer</div>
+                    <div class="cv-title">{{ $config->profile_position ?? 'Web Developer' }}</div>
                     <div class="cv-contacts">
                         <div class="cv-contact-item">
                             <i class="bi bi-envelope-fill"></i> {{ $user->email }}
@@ -547,27 +547,19 @@
                             <div class="cv-section-title">
                                 <i class="bi bi-lightning-fill"></i> Keahlian
                             </div>
-                            @php
-                                $skills = [
-                                    ['name' => 'Laravel',    'pct' => 92],
-                                    ['name' => 'Vue.js',     'pct' => 85],
-                                    ['name' => 'React',      'pct' => 78],
-                                    ['name' => 'PostgreSQL', 'pct' => 80],
-                                    ['name' => 'Docker',     'pct' => 68],
-                                    ['name' => 'Figma',      'pct' => 72],
-                                ];
-                            @endphp
-                            @foreach($skills as $skill)
+                            @forelse($skills as $skill)
                                 <div class="cv-skill-item">
                                     <div class="cv-skill-name">
-                                        <span>{{ $skill['name'] }}</span>
-                                        <span class="cv-skill-pct">{{ $skill['pct'] }}%</span>
+                                        <span>{{ $skill->name }}</span>
+                                        <span class="cv-skill-pct">{{ $skill->level }}%</span>
                                     </div>
                                     <div class="cv-skill-bar">
-                                        <div class="cv-skill-fill" style="width:{{ $skill['pct'] }}%;"></div>
+                                        <div class="cv-skill-fill" style="width:{{ min(100, (int) $skill->level) }}%;"></div>
                                     </div>
                                 </div>
-                            @endforeach
+                            @empty
+                                <p style="font-size:.72rem; color:#94a3b8;">Belum ada data keahlian.</p>
+                            @endforelse
                         </div>
 
                         {{-- Bahasa --}}
@@ -623,11 +615,7 @@
                                 <i class="bi bi-file-person-fill"></i> Tentang Saya
                             </div>
                             <p style="font-size:.78rem; color:#475569; line-height:1.8; margin:0;">
-                                Full Stack Developer dengan pengalaman lebih dari 3 tahun dalam membangun
-                                aplikasi web skala enterprise. Berpengalaman dalam ekosistem Laravel dan Vue.js,
-                                dengan kemampuan kuat di bidang arsitektur sistem, optimasi performa, dan
-                                pengembangan API RESTful. Memiliki semangat tinggi dalam open source dan
-                                selalu mengikuti perkembangan teknologi terkini.
+                                {{ $user->tentang ?: 'Belum ada deskripsi. Isi di menu Profil → Tentang Saya.' }}
                             </p>
                         </div>
 
@@ -637,39 +625,28 @@
                                 <i class="bi bi-briefcase-fill"></i> Pengalaman Kerja
                             </div>
 
-                            <div class="cv-entry">
-                                <div class="cv-entry-dot"></div>
-                                <div class="cv-entry-title">Full Stack Developer</div>
-                                <div class="cv-entry-sub">PT. Teknologi Nusantara</div>
-                                <div class="cv-entry-period">Jan 2023 – Sekarang &nbsp;·&nbsp; 2 thn 3 bln &nbsp;·&nbsp; Jakarta</div>
-                                <div class="cv-entry-desc">
-                                    Mengembangkan dan memelihara aplikasi web enterprise menggunakan Laravel & Vue.js.
-                                    Menangani arsitektur sistem, code review, dan mentoring junior developer.
-                                    Berhasil meningkatkan performa aplikasi 40% melalui optimasi query dan Redis caching.
+                            @forelse($experiences as $exp)
+                                <div class="cv-entry">
+                                    <div class="cv-entry-dot {{ $exp->is_current ? '' : 'gray' }}"></div>
+                                    <div class="cv-entry-title">{{ $exp->position }}</div>
+                                    <div class="cv-entry-sub">{{ $exp->company }}</div>
+                                    <div class="cv-entry-period">
+                                        {{ optional($exp->start_date)->format('M Y') }} –
+                                        {{ $exp->is_current ? 'Sekarang' : optional($exp->end_date)->format('M Y') }}
+                                        @if($exp->location) &nbsp;·&nbsp; {{ $exp->location }} @endif
+                                    </div>
+                                    @if($exp->description)
+                                        <div class="cv-entry-desc">{{ $exp->description }}</div>
+                                    @endif
+                                    @if(!empty($exp->skills) && is_array($exp->skills))
+                                        <div class="cv-tags">
+                                            @foreach($exp->skills as $s)<span class="cv-tag">{{ $s }}</span>@endforeach
+                                        </div>
+                                    @endif
                                 </div>
-                            </div>
-
-                            <div class="cv-entry">
-                                <div class="cv-entry-dot gray"></div>
-                                <div class="cv-entry-title">Backend Developer</div>
-                                <div class="cv-entry-sub">Startup Inovasi Digital</div>
-                                <div class="cv-entry-period">Mar 2022 – Des 2022 &nbsp;·&nbsp; 10 bln &nbsp;·&nbsp; Bandung</div>
-                                <div class="cv-entry-desc">
-                                    Membangun RESTful API untuk platform e-learning dengan 10.000+ pengguna aktif.
-                                    Implementasi JWT authentication dan integrasi payment gateway lokal.
-                                </div>
-                            </div>
-
-                            <div class="cv-entry">
-                                <div class="cv-entry-dot gray"></div>
-                                <div class="cv-entry-title">Junior Web Developer</div>
-                                <div class="cv-entry-sub">Freelance</div>
-                                <div class="cv-entry-period">Jun 2021 – Feb 2022 &nbsp;·&nbsp; 9 bln &nbsp;·&nbsp; Remote</div>
-                                <div class="cv-entry-desc">
-                                    Mengerjakan berbagai proyek web untuk klien UMKM: company profile, toko online,
-                                    dan landing page dari desain hingga deployment.
-                                </div>
-                            </div>
+                            @empty
+                                <p style="font-size:.75rem; color:#94a3b8;">Belum ada data pengalaman.</p>
+                            @endforelse
                         </div>
 
                         {{-- Pendidikan --}}
@@ -678,16 +655,23 @@
                                 <i class="bi bi-mortarboard-fill"></i> Pendidikan
                             </div>
 
-                            <div class="cv-entry">
-                                <div class="cv-entry-dot gray"></div>
-                                <div class="cv-entry-title">S1 Teknik Informatika</div>
-                                <div class="cv-entry-sub">Universitas Pakuan Bogor</div>
-                                <div class="cv-entry-period">2017 – 2021 &nbsp;·&nbsp; IPK 3.72</div>
-                                <div class="cv-entry-desc">
-                                    Fokus pada rekayasa perangkat lunak dan sistem terdistribusi.
-                                    Tugas akhir: Sistem Monitoring Jaringan berbasis Laravel & WebSocket.
+                            @forelse($educations as $edu)
+                                <div class="cv-entry">
+                                    <div class="cv-entry-dot {{ $edu->is_current ? '' : 'gray' }}"></div>
+                                    <div class="cv-entry-title">{{ $edu->degree }}@if($edu->major) — {{ $edu->major }}@endif</div>
+                                    <div class="cv-entry-sub">{{ $edu->institution }}</div>
+                                    <div class="cv-entry-period">
+                                        {{ optional($edu->start_date)->format('Y') }} –
+                                        {{ $edu->is_current ? 'Sekarang' : optional($edu->end_date)->format('Y') }}
+                                        @if($edu->gpa) &nbsp;·&nbsp; IPK {{ $edu->gpa }} @endif
+                                    </div>
+                                    @if($edu->description)
+                                        <div class="cv-entry-desc">{{ $edu->description }}</div>
+                                    @endif
                                 </div>
-                            </div>
+                            @empty
+                                <p style="font-size:.75rem; color:#94a3b8;">Belum ada data pendidikan.</p>
+                            @endforelse
                         </div>
 
                         {{-- Proyek Unggulan --}}
@@ -696,43 +680,27 @@
                                 <i class="bi bi-folder-fill"></i> Proyek Unggulan
                             </div>
 
-                            @php
-                                $projects = [
-                                    [
-                                        'name'  => 'E-Commerce App',
-                                        'desc'  => 'Platform belanja online dengan fitur cart, payment gateway, dan admin dashboard.',
-                                        'tags'  => ['Laravel', 'Vue.js', 'MySQL'],
-                                    ],
-                                    [
-                                        'name'  => 'REST API Blog',
-                                        'desc'  => 'Backend RESTful API untuk platform blog dengan autentikasi JWT dan rate limiting.',
-                                        'tags'  => ['PHP', 'Laravel', 'JWT'],
-                                    ],
-                                    [
-                                        'name'  => 'Analytics Dashboard',
-                                        'desc'  => 'Dashboard visualisasi data real-time dengan chart interaktif dan export Excel.',
-                                        'tags'  => ['Vue.js', 'Chart.js', 'Laravel'],
-                                    ],
-                                ];
-                            @endphp
-
-                            @foreach($projects as $project)
+                            @forelse($projects as $project)
                                 <div style="margin-bottom:12px; padding:10px 14px;
                                             background:#f8fafc; border-radius:8px;
                                             border:1px solid #e2e8f0;">
                                     <div style="font-size:.8rem; font-weight:800; color:#0f172a;">
-                                        {{ $project['name'] }}
+                                        {{ $project->title }}
                                     </div>
                                     <div style="font-size:.72rem; color:#64748b; margin-top:3px; line-height:1.6;">
-                                        {{ $project['desc'] }}
+                                        {{ $project->description }}
                                     </div>
-                                    <div class="cv-tags">
-                                        @foreach($project['tags'] as $tag)
-                                            <span class="cv-tag">{{ $tag }}</span>
-                                        @endforeach
-                                    </div>
+                                    @if(!empty($project->tech_stack) && is_array($project->tech_stack))
+                                        <div class="cv-tags">
+                                            @foreach($project->tech_stack as $tag)
+                                                <span class="cv-tag">{{ $tag }}</span>
+                                            @endforeach
+                                        </div>
+                                    @endif
                                 </div>
-                            @endforeach
+                            @empty
+                                <p style="font-size:.75rem; color:#94a3b8;">Belum ada data proyek.</p>
+                            @endforelse
                         </div>
 
                     </div>
@@ -744,7 +712,7 @@
                         Dibuat: {{ now()->format('d F Y') }}
                     </span>
                     <span class="cv-footer-text">
-                        Hamzah Alfarizi &mdash; Daftar Riwayat Hidup
+                        {{ $user->name }} &mdash; Daftar Riwayat Hidup
                     </span>
                     <span class="cv-footer-text">Hal. 1 / 1</span>
                 </div>

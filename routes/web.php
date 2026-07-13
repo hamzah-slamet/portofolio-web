@@ -10,6 +10,9 @@ use App\Http\Controllers\CvController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\PortfolioConfigController;
+use App\Http\Controllers\MenuItemController;
+use App\Http\Controllers\CertificateController;
 
 // =====================
 // PUBLIC
@@ -23,6 +26,16 @@ Route::get('/portfolio/{username}', [PortfolioController::class, 'show'])->name(
 // =====================
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Pengaturan tampilan portfolio (hero, about, stats, contact, toggle section)
+    Route::get('/settings',  [PortfolioConfigController::class, 'edit'])->name('settings.edit');
+    Route::put('/settings',  [PortfolioConfigController::class, 'update'])->name('settings.update');
+
+    // Menu navbar dinamis
+    Route::get('/menus',            [MenuItemController::class, 'index'])->name('menus.index');
+    Route::post('/menus',           [MenuItemController::class, 'store'])->name('menus.store');
+    Route::put('/menus',            [MenuItemController::class, 'bulkUpdate'])->name('menus.bulk-update');
+    Route::delete('/menus/{menu}',  [MenuItemController::class, 'destroy'])->name('menus.destroy');
 });
 
 // =====================
@@ -53,6 +66,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/experiences/{experience}/edit',  [ExperienceController::class, 'edit'])   ->name('experiences.edit');
     Route::put('/experiences/{experience}',       [ExperienceController::class, 'update']) ->name('experiences.update');
     Route::delete('/experiences/{experience}',    [ExperienceController::class, 'destroy'])->name('experiences.destroy');
+
+    // Sertifikat
+    Route::get('/certificates',                  [CertificateController::class, 'index'])  ->name('certificates.index');
+    Route::post('/certificates',                 [CertificateController::class, 'store'])  ->name('certificates.store');
+    Route::put('/certificates/{certificate}',    [CertificateController::class, 'update']) ->name('certificates.update');
+    Route::delete('/certificates/{certificate}', [CertificateController::class, 'destroy'])->name('certificates.destroy');
 
     Route::get('/educations',                   [EducationController::class, 'index'])  ->name('educations.index');
     Route::get('/educations/create',            [EducationController::class, 'create']) ->name('educations.create');

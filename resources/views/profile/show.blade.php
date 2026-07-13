@@ -7,208 +7,64 @@
 
 @push('styles')
 <style>
-    .profile-main-card {
-        background: var(--card-bg);
-        border: 1px solid var(--card-border);
-        border-radius: 16px;
-        overflow: hidden;
-        margin-bottom: 20px;
+    /* ── Kartu profil kiri ───────────────────────────────── */
+    .pf-side-card { text-align: center; }
+    .pf-avatar,
+    .pf-avatar-ph {
+        width: 112px; height: 112px; border-radius: 24px;
+        object-fit: cover; margin: 0 auto 16px;
+        box-shadow: 0 8px 24px rgba(37,99,235,.18);
+        display: flex; align-items: center; justify-content: center;
     }
-
-    .profile-avatar-wrap {
-        padding: 22px 24px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        flex-wrap: wrap;
+    .pf-avatar { border: 3px solid var(--card-bg); }
+    .pf-avatar-ph {
+        background: linear-gradient(135deg, var(--blue, #2563eb), var(--blue-hover, #1d4ed8));
+        color: #fff; font-size: 2.6rem; font-weight: 800;
     }
+    .pf-name { font-size: 1.2rem; font-weight: 800; color: var(--text-primary); line-height: 1.2; }
+    .pf-email { font-size: .82rem; color: var(--text-muted); margin-top: 4px; word-break: break-all; }
 
-    .profile-avatar {
-        width: 72px;
-        height: 72px;
-        border-radius: 14px;
-        border: 2px solid var(--card-border);
-        object-fit: cover;
-        box-shadow: 0 2px 8px rgba(0,0,0,.08);
-        flex-shrink: 0;
+    .pf-badges { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 14px; }
+    .pf-badge {
+        display: inline-flex; align-items: center; gap: 5px;
+        font-size: .7rem; font-weight: 700; padding: 5px 11px;
+        border-radius: 99px; border: 1px solid transparent;
     }
+    .pf-badge.blue  { background: #eff6ff; color: #2563eb; border-color: #bfdbfe; }
+    .pf-badge.green { background: #f0fdf4; color: #16a34a; border-color: #bbf7d0; }
+    .pf-badge.red   { background: #fef2f2; color: #dc2626; border-color: #fecaca; }
 
-    .profile-avatar-placeholder {
-        width: 72px;
-        height: 72px;
-        border-radius: 14px;
-        background: #2563eb;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.6rem;
-        font-weight: 800;
-        color: white;
-        flex-shrink: 0;
+    .pf-divider { height: 1px; background: var(--card-border); margin: 18px 0; }
+
+    .pf-quick { display: flex; flex-direction: column; gap: 12px; text-align: left; }
+    .pf-quick-item { display: flex; align-items: center; gap: 12px; }
+    .pf-quick-ico {
+        width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+        display: flex; align-items: center; justify-content: center; font-size: .95rem;
+        background: var(--blue-light, #eff6ff); color: var(--text-secondary, #475569);
     }
+    .pf-quick-lbl { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: var(--text-muted); }
+    .pf-quick-val { font-size: .85rem; font-weight: 700; color: var(--text-primary); word-break: break-word; }
 
-    .profile-name {
-        font-size: 1.15rem;
-        font-weight: 800;
-        color: var(--text-primary);
-        line-height: 1.2;
+    /* ── Grid data diri kanan ────────────────────────────── */
+    .pf-info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .pf-info-item {
+        display: flex; align-items: center; gap: 12px;
+        padding: 13px 15px; border: 1px solid var(--card-border);
+        border-radius: 12px; background: var(--card-bg);
     }
-
-    .profile-email {
-        font-size: .8rem;
-        color: var(--text-muted);
-        margin-top: 3px;
+    .pf-info-ico {
+        width: 40px; height: 40px; border-radius: 11px; flex-shrink: 0;
+        display: flex; align-items: center; justify-content: center; font-size: 1.05rem;
+        background: var(--blue-light, #eff6ff); color: var(--text-secondary, #475569);
     }
+    .pf-info-lbl { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: var(--text-muted); }
+    .pf-info-val { font-size: .875rem; font-weight: 700; color: var(--text-primary); margin-top: 2px; }
 
-    .profile-uid-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        background: #eff6ff;
-        color: #2563eb;
-        font-size: .7rem;
-        font-weight: 700;
-        padding: 4px 10px;
-        border-radius: 99px;
-        border: 1px solid #bfdbfe;
-        margin-right: 6px;
-    }
+    .pf-body-text { font-size: .9rem; color: var(--text-secondary); line-height: 1.85; }
 
-    .profile-role-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        background: #f0fdf4;
-        color: #16a34a;
-        font-size: .7rem;
-        font-weight: 700;
-        padding: 4px 10px;
-        border-radius: 99px;
-        border: 1px solid #bbf7d0;
-    }
-
-    /* Info grid */
-    .profile-info-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 12px;
-        margin-bottom: 16px;
-    }
-
-    .profile-info-grid-2 {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 12px;
-        margin-bottom: 16px;
-    }
-
-    .profile-info-card {
-        background: var(--card-bg);
-        border: 1px solid var(--card-border);
-        border-radius: 12px;
-        padding: 14px 16px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .profile-info-icon {
-        width: 38px;
-        height: 38px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1rem;
-        flex-shrink: 0;
-    }
-
-    .profile-info-lbl {
-        font-size: .65rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: .9px;
-        color: var(--text-muted);
-    }
-
-    .profile-info-val {
-        font-size: .875rem;
-        font-weight: 700;
-        color: var(--text-primary);
-        margin-top: 2px;
-    }
-
-    .profile-section-card {
-        background: var(--card-bg);
-        border: 1px solid var(--card-border);
-        border-radius: 16px;
-        padding: 20px 22px;
-        margin-bottom: 16px;
-    }
-
-    .profile-section-title {
-        font-size: .72rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: var(--text-muted);
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-
-    .profile-section-body {
-        font-size: .9rem;
-        color: var(--text-secondary);
-        line-height: 1.8;
-    }
-
-    .profile-detail-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0;
-    }
-
-    .profile-detail-row {
-        display: flex;
-        flex-direction: column;
-        padding: 10px 0;
-        border-bottom: 1px solid var(--card-border);
-    }
-
-    .profile-detail-row:nth-child(odd)  { padding-right: 24px; }
-    .profile-detail-row:nth-child(even) { padding-left: 24px; border-left: 1px solid var(--card-border); }
-
-    .profile-detail-lbl {
-        font-size: .68rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: .8px;
-        color: var(--text-muted);
-        margin-bottom: 3px;
-    }
-
-    .profile-detail-val {
-        font-size: .875rem;
-        font-weight: 600;
-        color: var(--text-primary);
-    }
-
-    @media (max-width: 991px) {
-        .profile-info-grid, .profile-info-grid-2 { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (max-width: 768px) {
-        .profile-info-grid, .profile-info-grid-2 { grid-template-columns: repeat(2, 1fr); }
-        .profile-avatar-wrap { flex-direction: column; align-items: flex-start; }
-        .profile-detail-grid { grid-template-columns: 1fr; }
-        .profile-detail-row:nth-child(even) { padding-left: 0; border-left: none; }
-    }
-
-    @media (max-width: 480px) {
-        .profile-info-grid, .profile-info-grid-2 { grid-template-columns: 1fr; }
+    @media (max-width: 575px) {
+        .pf-info-grid { grid-template-columns: 1fr; }
     }
 </style>
 @endpush
@@ -220,171 +76,153 @@
             <p class="text-muted mb-0" style="font-size:.78rem;">Informasi akun dan data diri</p>
         </div>
         <a href="{{ route('profile.edit') }}" class="btn-admin-primary">
-            <i class="bi bi-pencil-fill me-1"></i> Edit Profil
+            <i class="bi bi-pencil-square"></i> Edit Profil
         </a>
     </div>
 @endsection
 
 @section('content')
+@php
+    $isActive = ($user->status_akun ?? 'aktif') === 'aktif';
+@endphp
 
-    {{-- Card utama: avatar --}}
-    <div class="profile-main-card">
-        <div class="profile-avatar-wrap">
-            <div class="d-flex align-items-center gap-3">
-                @if($user->foto_profil)
-                    <img src="{{ Storage::url($user->foto_profil) }}"
-                         alt="{{ $user->name }}" class="profile-avatar">
-                @else
-                    <div class="profile-avatar-placeholder">
-                        {{ strtoupper(substr($user->name, 0, 1)) }}
-                    </div>
+<div class="row g-4">
+
+    {{-- ════════ KIRI: Kartu Profil ════════ --}}
+    <div class="col-lg-4">
+        <div class="admin-card pf-side-card">
+            @if($user->foto_profil)
+                <img src="{{ Storage::url($user->foto_profil) }}" alt="{{ $user->name }}" class="pf-avatar">
+            @else
+                <div class="pf-avatar-ph">{{ strtoupper(substr($user->name, 0, 1)) }}</div>
+            @endif
+
+            <div class="pf-name">{{ $user->name }}</div>
+            <div class="pf-email"><i class="bi bi-envelope me-1"></i>{{ $user->email }}</div>
+
+            <div class="pf-badges">
+                @if($user->user_id)
+                    <span class="pf-badge blue"><i class="bi bi-person-vcard"></i>{{ $user->user_id }}</span>
                 @endif
-                <div>
-                    <div class="profile-name">{{ $user->name }}</div>
-                    <div class="profile-email">{{ $user->email }}</div>
-                    <div class="mt-2">
-                        @if($user->user_id)
-                            <span class="profile-uid-badge">
-                                <i class="bi bi-person-badge" style="font-size:.75rem;"></i>
-                                {{ $user->user_id }}
-                            </span>
-                        @endif
-                        @if($user->role)
-                            <span class="profile-role-badge">
-                                <i class="bi bi-shield-fill" style="font-size:.7rem;"></i>
-                                {{ ucfirst($user->role) }}
-                            </span>
-                        @endif
-                    </div>
-                </div>
-            </div>
-            <div>
-                <span class="badge-admin green">
-                    <i class="bi bi-circle-fill" style="font-size:.4rem;"></i> Aktif
+                @if($user->role)
+                    <span class="pf-badge green"><i class="bi bi-shield-lock"></i>{{ ucfirst($user->role) }}</span>
+                @endif
+                <span class="pf-badge {{ $isActive ? 'green' : 'red' }}">
+                    <i class="bi {{ $isActive ? 'bi-check-circle' : 'bi-x-circle' }}"></i>{{ $isActive ? 'Aktif' : 'Nonaktif' }}
                 </span>
             </div>
+
+            <div class="pf-divider"></div>
+
+            <div class="pf-quick">
+                <div class="pf-quick-item">
+                    <div class="pf-quick-ico"><i class="bi bi-calendar-heart"></i></div>
+                    <div>
+                        <div class="pf-quick-lbl">Umur</div>
+                        <div class="pf-quick-val">{{ $user->umur ? $user->umur.' tahun' : '—' }}</div>
+                    </div>
+                </div>
+                <div class="pf-quick-item">
+                    <div class="pf-quick-ico"><i class="bi bi-gender-ambiguous"></i></div>
+                    <div>
+                        <div class="pf-quick-lbl">Jenis Kelamin</div>
+                        <div class="pf-quick-val">{{ $user->jenis_kelamin ?? '—' }}</div>
+                    </div>
+                </div>
+                <div class="pf-quick-item">
+                    <div class="pf-quick-ico"><i class="bi bi-flag"></i></div>
+                    <div>
+                        <div class="pf-quick-lbl">Kewarganegaraan</div>
+                        <div class="pf-quick-val">{{ $user->kewarganegaraan ?? '—' }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="{{ route('profile.edit') }}" class="btn-admin-primary w-100 justify-content-center mt-4">
+                <i class="bi bi-pencil-square"></i> Edit Profil
+            </a>
         </div>
     </div>
 
-    {{-- Info row 1: Umur, TTL, Jenis Kelamin, Status --}}
-    <div class="profile-info-grid">
-        <div class="profile-info-card">
-            <div class="profile-info-icon" style="background:#fffbeb; color:#d97706;">
-                <i class="bi bi-calendar3"></i>
-            </div>
-            <div>
-                <div class="profile-info-lbl">Umur</div>
-                <div class="profile-info-val">{{ $user->umur ? $user->umur . ' tahun' : '—' }}</div>
-            </div>
-        </div>
+    {{-- ════════ KANAN: Detail Data ════════ --}}
+    <div class="col-lg-8">
 
-        <div class="profile-info-card">
-            <div class="profile-info-icon" style="background:#fdf4ff; color:#9333ea;">
-                <i class="bi bi-geo-fill"></i>
+        {{-- Data Diri --}}
+        <div class="admin-card mb-4">
+            <div class="admin-card-header">
+                <h6 class="admin-card-title"><i class="bi bi-person-lines-fill me-2 text-primary"></i>Data Diri</h6>
             </div>
-            <div>
-                <div class="profile-info-lbl">Tempat, Tgl Lahir</div>
-                <div class="profile-info-val" style="font-size:.78rem;">
-                    @if($user->tempat_lahir || $user->tanggal_lahir)
-                        {{ $user->tempat_lahir ?? '' }}{{ $user->tempat_lahir && $user->tanggal_lahir ? ', ' : '' }}{{ $user->tanggal_lahir ? $user->tanggal_lahir->format('d M Y') : '' }}
-                    @else
-                        —
-                    @endif
+            <div class="pf-info-grid">
+                <div class="pf-info-item">
+                    <div class="pf-info-ico"><i class="bi bi-geo-alt"></i></div>
+                    <div>
+                        <div class="pf-info-lbl">Tempat, Tgl Lahir</div>
+                        <div class="pf-info-val" style="font-size:.8rem;">
+                            @if($user->tempat_lahir || $user->tanggal_lahir)
+                                {{ $user->tempat_lahir ?? '' }}{{ $user->tempat_lahir && $user->tanggal_lahir ? ', ' : '' }}{{ $user->tanggal_lahir ? $user->tanggal_lahir->format('d M Y') : '' }}
+                            @else — @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="pf-info-item">
+                    <div class="pf-info-ico"><i class="bi bi-book"></i></div>
+                    <div>
+                        <div class="pf-info-lbl">Agama</div>
+                        <div class="pf-info-val">{{ $user->agama ?? '—' }}</div>
+                    </div>
+                </div>
+                <div class="pf-info-item">
+                    <div class="pf-info-ico"><i class="bi bi-heart"></i></div>
+                    <div>
+                        <div class="pf-info-lbl">Status Pernikahan</div>
+                        <div class="pf-info-val">{{ $user->status_pernikahan ?? '—' }}</div>
+                    </div>
+                </div>
+                <div class="pf-info-item">
+                    <div class="pf-info-ico"><i class="bi bi-envelope-at"></i></div>
+                    <div style="min-width:0;">
+                        <div class="pf-info-lbl">Email</div>
+                        <div class="pf-info-val" style="font-size:.8rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ $user->email }}</div>
+                    </div>
+                </div>
+                <div class="pf-info-item">
+                    <div class="pf-info-ico"><i class="bi bi-shield-check"></i></div>
+                    <div>
+                        <div class="pf-info-lbl">Status Akun</div>
+                        <div class="pf-info-val">{{ $isActive ? 'Aktif' : 'Nonaktif' }}</div>
+                    </div>
+                </div>
+                <div class="pf-info-item">
+                    <div class="pf-info-ico"><i class="bi bi-person-badge"></i></div>
+                    <div>
+                        <div class="pf-info-lbl">Peran</div>
+                        <div class="pf-info-val">{{ $user->role ? ucfirst($user->role) : '—' }}</div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="profile-info-card">
-            <div class="profile-info-icon" style="background:#eff6ff; color:#2563eb;">
-                <i class="bi bi-gender-ambiguous"></i>
+        {{-- Tentang --}}
+        <div class="admin-card mb-4">
+            <div class="admin-card-header">
+                <h6 class="admin-card-title"><i class="bi bi-chat-quote me-2 text-primary"></i>Tentang Saya</h6>
             </div>
-            <div>
-                <div class="profile-info-lbl">Jenis Kelamin</div>
-                <div class="profile-info-val">{{ $user->jenis_kelamin ?? '—' }}</div>
-            </div>
+            <p class="pf-body-text mb-0">
+                {{ $user->tentang ?: 'Belum ada deskripsi tentang diri.' }}
+            </p>
         </div>
 
-        <div class="profile-info-card">
-            <div class="profile-info-icon" style="background:#fff1f2; color:#e11d48;">
-                <i class="bi bi-heart-fill"></i>
+        {{-- Alamat --}}
+        <div class="admin-card">
+            <div class="admin-card-header">
+                <h6 class="admin-card-title"><i class="bi bi-geo-alt-fill me-2 text-primary"></i>Alamat</h6>
             </div>
-            <div>
-                <div class="profile-info-lbl">Status</div>
-                <div class="profile-info-val">{{ $user->status_pernikahan ?? '—' }}</div>
-            </div>
+            <p class="pf-body-text mb-0">
+                {{ $user->alamat ?: 'Alamat belum diisi.' }}
+            </p>
         </div>
+
     </div>
-
-    {{-- Info row 2: Email, Agama, Kewarganegaraan, Status Akun --}}
-    <div class="profile-info-grid-2">
-        <div class="profile-info-card">
-            <div class="profile-info-icon" style="background:#eff6ff; color:#2563eb;">
-                <i class="bi bi-envelope-fill"></i>
-            </div>
-            <div style="min-width:0;">
-                <div class="profile-info-lbl">Email</div>
-                <div class="profile-info-val"
-                     style="font-size:.78rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
-                    {{ $user->email }}
-                </div>
-            </div>
-        </div>
-
-        <div class="profile-info-card">
-            <div class="profile-info-icon" style="background:#fefce8; color:#ca8a04;">
-                <i class="bi bi-moon-stars-fill"></i>
-            </div>
-            <div>
-                <div class="profile-info-lbl">Agama</div>
-                <div class="profile-info-val">{{ $user->agama ?? '—' }}</div>
-            </div>
-        </div>
-
-        <div class="profile-info-card">
-            <div class="profile-info-icon" style="background:#f0fdf4; color:#16a34a;">
-                <i class="bi bi-flag-fill"></i>
-            </div>
-            <div>
-                <div class="profile-info-lbl">Kewarganegaraan</div>
-                <div class="profile-info-val">{{ $user->kewarganegaraan ?? '—' }}</div>
-            </div>
-        </div>
-
-        <div class="profile-info-card">
-            <div class="profile-info-icon" style="background:#f0fdf4; color:#16a34a;">
-                <i class="bi bi-shield-check-fill"></i>
-            </div>
-            <div>
-                <div class="profile-info-lbl">Status Akun</div>
-                @if(($user->status_akun ?? 'aktif') == 'aktif')
-                    <div class="profile-info-val" style="color:#16a34a;">Aktif</div>
-                @else
-                    <div class="profile-info-val" style="color:#ef4444;">Nonaktif</div>
-                @endif
-            </div>
-        </div>
-    </div>
-
-    {{-- Tentang --}}
-    @if($user->tentang)
-    <div class="profile-section-card">
-        <div class="profile-section-title">
-            <i class="bi bi-person-lines-fill text-primary"></i> Tentang Saya
-        </div>
-        <div class="profile-section-body">
-            {{ $user->tentang }}
-        </div>
-    </div>
-    @endif
-
-    {{-- Alamat --}}
-    <div class="profile-section-card">
-        <div class="profile-section-title">
-            <i class="bi bi-geo-alt-fill text-primary"></i> Alamat
-        </div>
-        <div class="profile-section-body">
-            {{ $user->alamat ?? 'Alamat belum diisi.' }}
-        </div>
-    </div>
+</div>
 
 @endsection

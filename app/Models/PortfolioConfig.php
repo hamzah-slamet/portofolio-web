@@ -11,6 +11,8 @@ class PortfolioConfig extends Model
         'user_id',
         'hero_title', 'hero_subtitle', 'hero_badge_text',
         'hero_cta_primary', 'hero_cta_secondary',
+        'about_meta', 'about_title', 'about_description', 'about_features', 'profile_position',
+        'contact_location', 'contact_phone', 'contact_email',
         'stat_awards', 'stat_projects', 'stat_years', 'stat_certificates',
         'show_hero', 'show_about', 'show_skills',
         'show_educations', 'show_experiences',
@@ -19,6 +21,7 @@ class PortfolioConfig extends Model
     ];
 
     protected $casts = [
+        'about_features'    => 'array',
         'show_hero'         => 'boolean',
         'show_about'        => 'boolean',
         'show_skills'       => 'boolean',

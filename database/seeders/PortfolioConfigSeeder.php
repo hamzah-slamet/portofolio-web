@@ -23,6 +23,22 @@ public function run(): void
             'hero_badge_text'   => 'Working for your success',
             'hero_cta_primary'  => 'Get Started',
             'hero_cta_secondary'=> 'View Projects',
+
+            // About
+            'about_meta'        => 'MORE ABOUT ME',
+            'about_title'       => 'Passionate Developer & Problem Solver',
+            'about_description' => "I'm a full-stack web developer focused on building clean, scalable, and user-friendly web applications using Laravel, Vue.js, and modern frontend technologies.",
+            'about_features'    => [
+                'Laravel & PHP Expert', 'Vue.js & React', 'RESTful API Design',
+                'MySQL & PostgreSQL', 'UI/UX Principles', 'Agile & Git Workflow',
+            ],
+            'profile_position'  => 'Web Developer',
+
+            // Contact
+            'contact_location'  => 'Jakarta, Indonesia',
+            'contact_phone'     => '+62 812 3456 7890',
+            'contact_email'     => $user->email,
+
             'stat_awards'       => 3,
             'stat_projects'     => 20,
             'stat_years'        => 2,

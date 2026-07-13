@@ -85,4 +85,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Experience::class);
     }
+
+    public function menuItems(): HasMany
+    {
+        return $this->hasMany(MenuItem::class);
+    }
+
+    public function certificates(): HasMany
+    {
+        return $this->hasMany(Certificate::class);
+    }
 }

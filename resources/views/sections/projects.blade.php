@@ -15,17 +15,28 @@
             <div class="col-lg-6" data-aos="fade-up" data-aos-delay="{{ ($index % 4 + 1) * 100 }}">
                 <div class="service-card d-flex">
                     <div class="icon flex-shrink-0">
-                        <i class="bi {{ $project->icon ?? 'bi-code-slash' }}"></i>
+                        <i class="bi bi-code-slash"></i>
                     </div>
                     <div>
                         <h3>{{ $project->title }}</h3>
                         <p>{{ $project->description }}</p>
-                        @if($project->url)
-                            <a href="{{ $project->url }}"
-                               class="read-more"
-                               target="_blank"
-                               rel="noopener noreferrer">
+
+                        @if(!empty($project->tech_stack) && is_array($project->tech_stack))
+                            <div class="mb-2">
+                                @foreach($project->tech_stack as $tech)
+                                    <span class="badge bg-secondary-subtle text-secondary me-1">{{ $tech }}</span>
+                                @endforeach
+                            </div>
+                        @endif
+
+                        @if($project->live_url)
+                            <a href="{{ $project->live_url }}" class="read-more" target="_blank" rel="noopener noreferrer">
                                 View Project <i class="bi bi-arrow-right"></i>
+                            </a>
+                        @endif
+                        @if($project->github_url)
+                            <a href="{{ $project->github_url }}" class="read-more ms-3" target="_blank" rel="noopener noreferrer">
+                                <i class="bi bi-github"></i> Code
                             </a>
                         @endif
                     </div>

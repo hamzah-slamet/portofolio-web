@@ -114,7 +114,7 @@
                        id="{{ $prefix }}_is_featured"
                        {{ old('is_featured', $project->is_featured ?? false) ? 'checked' : '' }}>
                 <label class="form-check-label form-label mb-0" for="{{ $prefix }}_is_featured">
-                    ⭐ Tandai sebagai Featured
+                    <i class="bi bi-pin-angle-fill me-1"></i> Tandai sebagai Featured
                 </label>
             </div>
         </div>

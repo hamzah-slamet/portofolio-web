@@ -578,3 +578,81 @@ body.sidebar-collapsed .admin-topbar  { left: 0; border-left: none; }
     background: rgba(0,0,0,.35);
     z-index: 1039;
 }
+
+/* =============================================================
+   TOAST NOTIFIKASI (dipakai komponen x-toast)
+   Ditaruh di sini agar CSS selalu ada di <head> — komponen di
+   dalam layout tidak bisa push ke @stack('styles') tepat waktu.
+   ============================================================= */
+.app-toast-container {
+    position: fixed; top: 84px; right: 24px; z-index: 1080;
+    display: flex; flex-direction: column; gap: 10px; pointer-events: none;
+}
+.app-toast {
+    pointer-events: auto;
+    display: flex; align-items: center; gap: 10px;
+    min-width: 280px; max-width: 360px;
+    padding: 13px 15px; border-radius: 10px;
+    background: #fff; color: var(--text-primary);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, .15);
+    border-left: 4px solid var(--success);
+    font-size: .85rem; font-weight: 600;
+    animation: toastIn .3s ease both;
+}
+.app-toast.hide { animation: toastOut .25s ease forwards; }
+.app-toast-danger { border-left-color: var(--danger); }
+.app-toast-icon { font-size: 1.1rem; flex-shrink: 0; color: var(--success); }
+.app-toast-danger .app-toast-icon { color: var(--danger); }
+.app-toast-msg { flex: 1; line-height: 1.4; }
+.app-toast-close {
+    background: none; border: none; cursor: pointer; padding: 2px;
+    color: var(--text-muted); font-size: .75rem; flex-shrink: 0;
+}
+.app-toast-close:hover { color: var(--text-primary); }
+@keyframes toastIn  { from { opacity: 0; transform: translateX(110%); } to { opacity: 1; transform: translateX(0); } }
+@keyframes toastOut { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(110%); } }
+@media (max-width: 576px) {
+    .app-toast-container { left: 16px; right: 16px; top: 72px; }
+    .app-toast { min-width: 0; max-width: none; width: 100%; }
+}
+
+/* =============================================================
+   IKON SERAGAM / MONOKROM (semua menu)
+   Aturan class + !important mengalahkan inline style lama,
+   jadi tidak perlu edit tiap halaman satu per satu.
+   ============================================================= */
+
+/* 1. Warna glyph semua ikon Bootstrap = satu warna netral */
+.admin-main i[class*="bi-"] {
+    color: var(--text-secondary) !important;
+}
+
+/* 2. Pengecualian: ikon di dalam tombol utama tetap putih (kontras) */
+.admin-main .btn-admin-primary i[class*="bi-"] {
+    color: #ffffff !important;
+}
+
+/* 3. Pengecualian: toast tetap hijau/merah sesuai makna */
+.admin-main .app-toast-success i[class*="bi-"] { color: var(--success) !important; }
+.admin-main .app-toast-danger  i[class*="bi-"] { color: var(--danger)  !important; }
+
+/* 4. Netralkan semua "tile" ikon berwarna jadi seragam (abu-abu lembut) */
+.admin-main .stat-icon,
+.admin-main .skill-stat-icon,
+.admin-main .skill-icon-box,
+.admin-main .exp-stat-icon,
+.admin-main .user-stat-icon,
+.admin-main .profile-info-icon,
+.admin-main .icon-box {
+    background: var(--blue-light) !important;
+    color: var(--text-secondary) !important;
+}
+.admin-main .stat-icon i[class*="bi-"],
+.admin-main .skill-stat-icon i[class*="bi-"],
+.admin-main .skill-icon-box i[class*="bi-"],
+.admin-main .exp-stat-icon i[class*="bi-"],
+.admin-main .user-stat-icon i[class*="bi-"],
+.admin-main .profile-info-icon i[class*="bi-"],
+.admin-main .icon-box i[class*="bi-"] {
+    color: var(--text-secondary) !important;
+}

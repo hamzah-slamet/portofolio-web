@@ -226,10 +226,10 @@ textarea.form-control-admin {
                     <div class="col-md-4">
                         <label class="form-label-admin" for="institution_type">Tipe</label>
                         <select id="institution_type" name="institution_type" class="form-select-admin">
-                            <option value="university" {{ old('institution_type', $education?->institution_type) === 'university' ? 'selected' : '' }}>🏛️ Universitas</option>
-                            <option value="school"     {{ old('institution_type', $education?->institution_type) === 'school'     ? 'selected' : '' }}>🏫 Sekolah</option>
-                            <option value="bootcamp"   {{ old('institution_type', $education?->institution_type) === 'bootcamp'   ? 'selected' : '' }}>⚡ Bootcamp</option>
-                            <option value="course"     {{ old('institution_type', $education?->institution_type) === 'course'     ? 'selected' : '' }}>🎓 Kursus / Online</option>
+                            <option value="university" {{ old('institution_type', $education?->institution_type) === 'university' ? 'selected' : '' }}>Universitas</option>
+                            <option value="school"     {{ old('institution_type', $education?->institution_type) === 'school'     ? 'selected' : '' }}>Sekolah</option>
+                            <option value="bootcamp"   {{ old('institution_type', $education?->institution_type) === 'bootcamp'   ? 'selected' : '' }}>Bootcamp</option>
+                            <option value="course"     {{ old('institution_type', $education?->institution_type) === 'course'     ? 'selected' : '' }}>Kursus / Online</option>
                         </select>
                     </div>
 

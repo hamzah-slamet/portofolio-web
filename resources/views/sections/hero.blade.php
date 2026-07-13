@@ -1,56 +1,52 @@
 {{-- ==================== HERO SECTION ==================== --}}
+@php
+    // Pecah judul jadi baris; baris terakhir diberi warna aksen
+    $heroLines = collect(preg_split('/\r\n|\r|\n/', (string) $config->hero_title))
+        ->map(fn ($l) => trim($l))->filter()->values();
+@endphp
 <section id="hero" class="hero section">
 
     <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-        <div class="row align-items-center">
+        <div class="row justify-content-center text-center">
 
-            {{-- Left: Hero Content --}}
-            <div class="col-lg-6">
+            {{-- Hero Content (full, tanpa gambar ilustrasi) --}}
+            <div class="col-lg-9">
                 <div class="hero-content" data-aos="fade-up" data-aos-delay="200">
 
+                    @if($config->hero_badge_text)
                     <div class="company-badge mb-4">
                         <i class="bi bi-gear-fill me-2"></i>
-                        Working for your success
+                        {{ $config->hero_badge_text }}
                     </div>
+                    @endif
 
                     <h1 class="mb-4">
-                        Building Modern <br>
-                        Web Applications <br>
-                        <span class="accent-text">With Laravel</span>
+                        @foreach($heroLines as $i => $line)
+                            @if($loop->last && $heroLines->count() > 1)
+                                <span class="accent-text">{{ $line }}</span>
+                            @else
+                                {{ $line }} <br>
+                            @endif
+                        @endforeach
                     </h1>
 
-                    <p class="mb-4 mb-md-5">
-                        Hi, I'm Hamzah — a passionate web developer crafting elegant,
-                        high-performance web solutions using Laravel, Vue.js, and modern technologies.
+                    <p class="mb-4 mb-md-5 mx-auto" style="max-width:640px;">
+                        {{ $config->hero_subtitle }}
                     </p>
 
                     <div class="hero-buttons">
-                        <a href="#about" class="btn btn-primary me-0 me-sm-2 mx-1">Get Started</a>
-                        <a href="#projects" class="btn btn-link mt-2 mt-sm-0">
-                            <i class="bi bi-eye me-1"></i>
-                            View Projects
-                        </a>
+                        @if($config->hero_cta_primary)
+                            <a href="#about" class="btn btn-primary me-0 me-sm-2 mx-1">{{ $config->hero_cta_primary }}</a>
+                        @endif
+                        @if($config->hero_cta_secondary)
+                            <a href="#projects" class="btn btn-link mt-2 mt-sm-0">
+                                <i class="bi bi-eye me-1"></i>
+                                {{ $config->hero_cta_secondary }}
+                            </a>
+                        @endif
                     </div>
 
-                </div>
-            </div>
-
-            <div class="col-lg-6">
-                <div class="hero-image" data-aos="zoom-out" data-aos-delay="300">
-                    <img src="{{ asset('assets/Home/img/illustration-1.webp') }}" alt="Hero Illustration"
-                        class="img-fluid">
-
-                    <div class="customers-badge">
-                        <div class="customer-avatars">
-                            <img src="{{ asset('assets/Home/img/avatar-1.webp') }}" alt="User 1" class="avatar">
-                            <img src="{{ asset('assets/Home/img/avatar-2.webp') }}" alt="User 2" class="avatar">
-                            <img src="{{ asset('assets/Home/img/avatar-3.webp') }}" alt="User 3" class="avatar">
-                            <img src="{{ asset('assets/Home/img/avatar-4.webp') }}" alt="User 4" class="avatar">
-                            <span class="avatar more">5+</span>
-                        </div>
-                        <p class="mb-0 mt-2">Trusted by clients and collaborators worldwide</p>
-                    </div>
                 </div>
             </div>
 
@@ -62,7 +58,7 @@
                 <div class="stat-item">
                     <div class="stat-icon"><i class="bi bi-trophy"></i></div>
                     <div class="stat-content">
-                        <h4>3x Won Awards</h4>
+                        <h4>{{ $config->stat_awards ?? 0 }}x Won Awards</h4>
                         <p class="mb-0">Competition winner</p>
                     </div>
                 </div>
@@ -71,7 +67,7 @@
                 <div class="stat-item">
                     <div class="stat-icon"><i class="bi bi-briefcase"></i></div>
                     <div class="stat-content">
-                        <h4>20+ Projects</h4>
+                        <h4>{{ $config->stat_projects ?? 0 }}+ Projects</h4>
                         <p class="mb-0">Successfully delivered</p>
                     </div>
                 </div>
@@ -80,7 +76,7 @@
                 <div class="stat-item">
                     <div class="stat-icon"><i class="bi bi-graph-up"></i></div>
                     <div class="stat-content">
-                        <h4>2+ Years</h4>
+                        <h4>{{ $config->stat_years ?? 0 }}+ Years</h4>
                         <p class="mb-0">Development experience</p>
                     </div>
                 </div>
@@ -89,7 +85,7 @@
                 <div class="stat-item">
                     <div class="stat-icon"><i class="bi bi-award"></i></div>
                     <div class="stat-content">
-                        <h4>10+ Certificates</h4>
+                        <h4>{{ $config->stat_certificates ?? 0 }}+ Certificates</h4>
                         <p class="mb-0">Professional credentials</p>
                     </div>
                 </div>

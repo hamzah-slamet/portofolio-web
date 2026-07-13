@@ -189,19 +189,19 @@ textarea.form-control-admin {
                         <select id="company_type" name="company_type" class="form-select-admin">
                             <option value="corporate"
                                 {{ old('company_type', $experience?->company_type) === 'corporate' ? 'selected' : '' }}>
-                                🏢 Korporat / Perusahaan
+                                Korporat / Perusahaan
                             </option>
                             <option value="startup"
                                 {{ old('company_type', $experience?->company_type) === 'startup' ? 'selected' : '' }}>
-                                🚀 Startup
+                                Startup
                             </option>
                             <option value="freelance"
                                 {{ old('company_type', $experience?->company_type) === 'freelance' ? 'selected' : '' }}>
-                                💻 Freelance
+                                Freelance
                             </option>
                             <option value="ngo"
                                 {{ old('company_type', $experience?->company_type) === 'ngo' ? 'selected' : '' }}>
-                                🌿 NGO / Non-Profit
+                                NGO / Non-Profit
                             </option>
                         </select>
                     </div>
