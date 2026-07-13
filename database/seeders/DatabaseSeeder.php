@@ -21,5 +21,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        // Buat portfolio config (published) untuk user di atas
+        $this->call(PortfolioConfigSeeder::class);
     }
 }
