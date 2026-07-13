@@ -1,59 +1,142 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Web Portfolio Dinamis
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi portfolio berbasis **Laravel 12** dengan dashboard admin. Seluruh isi halaman depan (hero, about, skills, pengalaman, pendidikan, sertifikat, projek, kontak, menu navbar, dan CV) **dikelola lewat dashboard** — tidak ada konten yang hardcoded.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Persyaratan
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+| Kebutuhan | Versi |
+|-----------|-------|
+| PHP       | ≥ 8.2 (dites di 8.4) |
+| Composer  | ≥ 2.x |
+| MySQL / MariaDB | (mis. via Laragon/XAMPP) |
+| Node.js & NPM   | ≥ 16 (untuk build aset frontend) |
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+> Ekstensi PHP yang dibutuhkan: `pdo_mysql`, `mbstring`, `openssl`, `fileinfo`, `gd`.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## Langkah Instalasi & Menjalankan
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 1. Install dependency PHP
 
-## Laravel Sponsors
+```bash
+composer install
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 2. Siapkan file environment
 
-### Premium Partners
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 3. Buat database & atur koneksi
 
-## Contributing
+Buat database kosong (mis. lewat phpMyAdmin/Laragon) bernama `web_portfolio`, lalu edit `.env`:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=web_portfolio
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-## Code of Conduct
+> Ingin tanpa MySQL? Set `DB_CONNECTION=sqlite`, lalu buat file `database/database.sqlite`.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 4. Migrasi + data awal (seeder)
 
-## Security Vulnerabilities
+```bash
+php artisan migrate:fresh --seed
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Perintah ini membuat semua tabel dan mengisi data default: **1 user**, konfigurasi portfolio, dan **8 menu navbar**.
 
-## License
+### 5. Buat symlink storage (untuk foto profil & gambar sertifikat)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+php artisan storage:link
+```
+
+### 6. Build aset frontend
+
+```bash
+npm install
+npm run dev      # mode pengembangan (biarkan berjalan)
+# atau
+npm run build    # untuk produksi
+```
+
+### 7. Jalankan server
+
+```bash
+php artisan serve
+```
+
+Buka **<http://127.0.0.1:8000>**
+
+---
+
+## Struktur Halaman
+
+### Halaman Depan (publik) — `/`
+
+Menampilkan section sesuai **menu aktif**: Hero, About, Skills, Experience, Education, Certificate, Projects, Contact.
+
+### Dashboard Admin
+
+| Menu | Fungsi |
+|------|--------|
+| **Dashboard** | Ringkasan statistik |
+| **Projek** | CRUD project (judul, deskripsi, tech stack, link, featured) |
+| **Keahlian** | CRUD skill (nama, kategori, level %) |
+| **Pengalaman** | CRUD pengalaman kerja |
+| **Pendidikan** | CRUD riwayat pendidikan |
+| **Sertifikat** | CRUD sertifikat (judul, penerbit, tahun, gambar, link) |
+| **Daftar Riwayat Hidup (CV)** | Preview & unduh PDF — datanya otomatis dari menu di atas |
+| **Pengaturan Portfolio** | Teks Hero, statistik, kontak, judul About |
+| **Menu Navbar** | Kelola menu + **mengatur section mana yang tampil** di halaman depan |
+| **Profil Saya** | Data diri + foto + "Tentang Saya" (tampil di section About) |
+
+### Konsep penting
+
+- **Visibilitas section** halaman depan dikendalikan dari **Menu Navbar**: section tampil bila ada menu **aktif** menuju anchor-nya (`#hero`, `#about`, `#skills`, `#experience`, `#education`, `#certificate`, `#projects`, `#contact`).
+- **Deskripsi About** diambil dari **Profil → Tentang Saya**.
+- **CV** menarik data dari Profil, Skills, Pengalaman, Pendidikan, dan Projek.
+- Agar halaman depan tampil (bukan 404), pastikan **Status Publikasi** aktif di *Pengaturan Portfolio*.
+
+---
+
+## Perintah yang Sering Dipakai
+
+```bash
+php artisan migrate:fresh --seed   # reset ulang database + data awal
+php artisan db:seed                # jalankan seeder saja
+php artisan optimize:clear         # bersihkan cache (view, route, config)
+php artisan storage:link           # ulang symlink storage bila gambar tak muncul
+```
+
+---
+
+## Troubleshooting
+
+| Masalah | Solusi |
+|---------|--------|
+| `require vendor/autoload.php ... No such file` | Jalankan `composer install` |
+| Halaman depan **404** | Aktifkan *Status Publikasi* di Pengaturan Portfolio |
+| `Table 'projects' already exists` saat migrate | Jalankan `php artisan migrate:fresh --seed` |
+| Foto/gambar tidak muncul | Jalankan `php artisan storage:link` |
+| CSS/JS admin tidak berubah | Hard refresh browser (**Ctrl + F5**) atau jalankan `npm run dev` |
+| `SQLSTATE ... Access denied` | Cek `DB_USERNAME`/`DB_PASSWORD` di `.env` |
+
+---
+
+## Teknologi
+
+- **Laravel 12** · **Laravel Breeze** (autentikasi)
+- **Bootstrap 5** + **Bootstrap Icons** (UI seragam)
+- **barryvdh/laravel-dompdf** (unduh CV PDF)
+- **Vite** (build aset)
