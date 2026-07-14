@@ -6,7 +6,7 @@
     // Embed foto profil sebagai base64 agar ikut ter-download di PDF
     $fotoData = null;
     if ($user->foto_profil) {
-        $fotoPath = storage_path('app/public/' . $user->foto_profil);
+        $fotoPath = public_path('uploads/' . $user->foto_profil);
         if (is_file($fotoPath)) {
             $ext = strtolower(pathinfo($fotoPath, PATHINFO_EXTENSION)) ?: 'png';
             $fotoData = 'data:image/' . $ext . ';base64,' . base64_encode(file_get_contents($fotoPath));
