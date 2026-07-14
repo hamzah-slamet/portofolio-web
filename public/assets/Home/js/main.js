@@ -40,9 +40,24 @@
    * Hide mobile nav on same-page/hash links
    */
   document.querySelectorAll('#navmenu a').forEach(navmenu => {
-    navmenu.addEventListener('click', () => {
+    navmenu.addEventListener('click', (e) => {
       if (document.querySelector('.mobile-nav-active')) {
         mobileNavToogle();
+      }
+
+      // Same-page anchor: smooth scroll tanpa menampilkan "#" di URL
+      // Pakai properti terresolusi dari elemen <a> agar bekerja untuk href
+      // relatif ("#about", "/#about") maupun absolut ("http://host/#about").
+      const id = (navmenu.hash || '').slice(1);
+      if (id) {
+        const samePage = navmenu.pathname === window.location.pathname &&
+                         navmenu.origin === window.location.origin;
+        const target = document.getElementById(id);
+        if (target && samePage) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+          history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
       }
     });
 

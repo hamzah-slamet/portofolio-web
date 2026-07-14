@@ -11,7 +11,7 @@
         <div class="row g-4 g-lg-5">
 
             {{-- Contact Info --}}
-            <div class="col-lg-5">
+            <div class="col-lg-12">
                 <div class="info-box" data-aos="fade-up" data-aos-delay="200">
                     <h3>Info Kontak</h3>
                     <p>Jangan ragu menghubungi saya kapan saja. Saya terbuka untuk pekerjaan freelance, kolaborasi, atau sekadar berbincang tentang teknologi.</p>
@@ -42,7 +42,8 @@
                 </div>
             </div>
 
-            {{-- Contact Form --}}
+            {{-- Contact Form (disembunyikan sementara — belum dibutuhkan) --}}
+            {{--
             <div class="col-lg-7">
                 <div class="contact-form" data-aos="fade-up" data-aos-delay="300">
                     <h3>Hubungi Saya</h3>
@@ -94,6 +95,7 @@
 
                 </div>
             </div>
+            --}}
 
         </div>
 

@@ -12,7 +12,6 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="p-3 rounded-4 h-100" style="background: var(--surface-color, #f6f7f9); border:1px solid rgba(0,0,0,.05);">
                         <div class="d-flex align-items-center gap-2 mb-2">
-                            <i class="bi {{ $skill->icon ?? 'bi-stars' }} fs-5" style="color: {{ $skill->color ?? '#4154f1' }};"></i>
                             <span class="fw-bold">{{ $skill->name }}</span>
                             @if($skill->category)
                                 <span class="badge bg-secondary-subtle text-secondary ms-auto">{{ $skill->category }}</span>

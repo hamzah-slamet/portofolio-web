@@ -189,8 +189,15 @@
         </div>
     </div>
 
-    {{-- ============ ILUSTRASI HERO (MULTI-GAMBAR) ============ --}}
-    <div class="admin-card mb-5">
+    <div class="d-flex justify-content-end gap-2 mb-4">
+        <button type="submit" class="btn-admin-primary">
+            <i class="bi bi-save"></i> Simpan Pengaturan
+        </button>
+    </div>
+</form>
+
+{{-- ============ ILUSTRASI HERO (MULTI-GAMBAR) — di luar form utama ============ --}}
+<div class="admin-card mb-5">
         <div class="admin-card-header">
             <h6 class="admin-card-title"><i class="bi bi-images me-2 text-primary"></i>Ilustrasi Hero (atas)</h6>
         </div>
@@ -222,15 +229,11 @@
                         <div style="position:relative; border:1px solid var(--card-border,#e2e8f0); border-radius:12px; overflow:hidden; background:#f8fafc;">
                             <img src="{{ \Illuminate\Support\Facades\Storage::url($img->image) }}" alt=""
                                 style="width:100%; height:130px; object-fit:contain; padding:10px;">
-                            <form action="{{ route('hero-images.destroy', $img) }}" method="POST"
-                                onsubmit="return confirm('Hapus ilustrasi ini?')"
-                                style="position:absolute; top:6px; right:6px;">
-                                @csrf @method('DELETE')
-                                <button type="submit" title="Hapus"
-                                        style="border:none; width:30px; height:30px; border-radius:50%; background:#fff; color:#dc2626; box-shadow:0 2px 8px rgba(0,0,0,.15); cursor:pointer;">
-                                    <i class="bi bi-trash3"></i>
-                                </button>
-                            </form>
+                            <button type="button" title="Hapus"
+                                    onclick="openHeroDelete('{{ route('hero-images.destroy', $img) }}')"
+                                    style="position:absolute; top:6px; right:6px; border:none; width:30px; height:30px; border-radius:50%; background:#fff; color:#dc2626; box-shadow:0 2px 8px rgba(0,0,0,.15); cursor:pointer;">
+                                <i class="bi bi-trash3"></i>
+                            </button>
                         </div>
                     </div>
                 @endforeach
@@ -243,11 +246,36 @@
         @endif
     </div>
 
-
-    <div class="d-flex justify-content-end gap-2 mb-5">
-        <button type="submit" class="btn-admin-primary">
-            <i class="bi bi-save"></i> Simpan Pengaturan
-        </button>
+{{-- ===== Modal konfirmasi hapus ilustrasi hero ===== --}}
+<div class="modal fade" id="modalDeleteHeroImg" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border:none; border-radius:16px;">
+            <div class="modal-body text-center p-4">
+                <div class="mb-3" style="width:56px; height:56px; margin:0 auto; border-radius:50%; background:#fee2e2; display:flex; align-items:center; justify-content:center;">
+                    <i class="bi bi-trash3" style="font-size:1.5rem; color:#dc2626;"></i>
+                </div>
+                <h6 class="mb-1" style="font-weight:700;">Hapus Ilustrasi?</h6>
+                <p class="text-muted mb-4" style="font-size:.85rem; text-align:center;">Ilustrasi ini akan dihapus permanen dari hero.</p>
+                <div class="d-flex gap-2 justify-content-center">
+                    <button type="button" class="btn-admin-secondary" data-bs-dismiss="modal">Batal</button>
+                    <form id="formDeleteHeroImg" method="POST" action="">
+                        @csrf @method('DELETE')
+                        <button type="submit" class="btn-admin-primary" style="background:#dc2626; border-color:#dc2626;">
+                            <i class="bi bi-trash3"></i> Hapus
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-</form>
+</div>
+
+@push('scripts')
+<script>
+    function openHeroDelete(action) {
+        document.getElementById('formDeleteHeroImg').action = action;
+        new bootstrap.Modal(document.getElementById('modalDeleteHeroImg')).show();
+    }
+</script>
+@endpush
 @endsection
