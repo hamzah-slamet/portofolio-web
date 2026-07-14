@@ -102,18 +102,6 @@
     </div>
     <div class="skill-pct" style="color:{{ $skill->color ?? '#2563eb' }};">{{ $skill->level }}%</div>
 
-    {{-- Sertifikat badge --}}
-    @if($skill->certificates && count($skill->certificates) > 0)
-    <div class="flex-shrink-0">
-        <span title="{{ implode("\n", $skill->certificates) }}"
-              style="font-size:.7rem;font-weight:600;background:#f0fdf4;color:#16a34a;
-                     border:1px solid #bbf7d0;border-radius:99px;padding:2px 8px;
-                     cursor:default;white-space:nowrap;">
-            <i class="bi bi-patch-check-fill"></i> {{ count($skill->certificates) }} sertifikat
-        </span>
-    </div>
-    @endif
-
     <div class="d-flex gap-1 flex-shrink-0">
         <button class="btn-admin-edit btn-edit-skill"
                 data-id="{{ $skill->id }}"
@@ -123,7 +111,6 @@
                 data-icon="{{ $skill->icon }}"
                 data-color="{{ $skill->color }}"
                 data-colorfill="{{ $skill->color_fill }}"
-                data-certificates="{{ json_encode($skill->certificates ?? []) }}"
                 data-bs-toggle="modal" data-bs-target="#modalEdit">
             <i class="bi bi-pencil-fill"></i>
         </button>
@@ -301,10 +288,6 @@ document.querySelectorAll('.btn-edit-skill').forEach(btn => {
 
         // color swatches
         setActiveSwatch('edit', d.color);
-
-        // certificates
-        const certs = JSON.parse(d.certificates || '[]');
-        renderCertificates('edit', certs);
     });
 });
 
@@ -360,48 +343,9 @@ function hexToRgb(hex) {
 buildSwatches('add');
 buildSwatches('edit');
 
-// ── Certificate repeater ──────────────────────────────────────────────────────
-function renderCertificates(prefix, certs = []) {
-    const list = document.getElementById(`${prefix}_cert_list`);
-    list.innerHTML = '';
-    if (certs.length === 0) { addCertField(prefix, ''); return; }
-    certs.forEach(url => addCertField(prefix, url));
-}
-
-function addCertField(prefix, value = '') {
-    const list = document.getElementById(`${prefix}_cert_list`);
-    const div  = document.createElement('div');
-    div.className = 'cert-item';
-    div.innerHTML = `
-        <i class="bi bi-mortarboard-fill" style="color:#d97706;font-size:1rem;flex-shrink:0;"></i>
-        <input type="url" name="certificates[]" class="form-control"
-               placeholder="https://link-sertifikat.com" value="${escHtml(value)}">
-        <button type="button" class="cert-remove-btn" onclick="removeCertField(this)">
-            <i class="bi bi-trash3"></i>
-        </button>`;
-    list.appendChild(div);
-}
-
-function removeCertField(btn) {
-    const list = btn.closest('#add_cert_list, #edit_cert_list');
-    if (list.children.length <= 1) {
-        list.querySelector('input').value = '';
-        return;
-    }
-    btn.closest('.cert-item').remove();
-}
-
-function escHtml(str) {
-    return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-// init add modal
-renderCertificates('add', []);
-
 // reset add modal on close
 document.getElementById('modalAdd').addEventListener('hidden.bs.modal', () => {
     document.getElementById('modalAdd').querySelector('form').reset();
-    renderCertificates('add', []);
     document.getElementById('add_level_val').textContent = '50%';
     setActiveSwatch('add', '');
 });

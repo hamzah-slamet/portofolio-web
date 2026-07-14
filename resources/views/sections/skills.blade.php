@@ -2,8 +2,8 @@
 <section id="skills" class="services section">
 
     <div class="container section-title" data-aos="fade-up">
-        <h2>Skills</h2>
-        <p>Technologies and tools I work with</p>
+        <h2>Keahlian</h2>
+        <p>Teknologi dan alat yang saya kuasai</p>
     </div>
 
     <div class="container" data-aos="fade-up" data-aos-delay="100">

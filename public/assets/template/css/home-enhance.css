@@ -1,0 +1,233 @@
+/* =====================================================================
+   HOME ENHANCE — lapisan estetika di atas main.css
+   Catatan: sengaja TIDAK menyentuh bagian #contact.
+   ===================================================================== */
+
+:root {
+    --he-accent: var(--accent-color, #0d83fd);
+    --he-accent-soft: color-mix(in srgb, var(--accent-color, #0d83fd), transparent 88%);
+    --he-shadow: 0 10px 30px -12px rgba(16, 42, 78, .18);
+    --he-shadow-hover: 0 22px 48px -18px rgba(13, 131, 253, .38);
+    --he-ease: cubic-bezier(.22, 1, .36, 1);
+}
+
+/* ---------- Judul Section ---------- */
+.main .section-title h2 {
+    position: relative;
+    display: inline-block;
+}
+.main .section-title h2::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -12px;
+    transform: translateX(-50%);
+    width: 54px;
+    height: 4px;
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--he-accent), color-mix(in srgb, var(--he-accent), #7c3aed 55%));
+}
+.main .section-title p {
+    margin-top: 22px;
+    color: color-mix(in srgb, var(--default-color), transparent 35%);
+}
+
+/* ---------- Hero ---------- */
+/* Background hero penuh & rata (tanpa potongan diagonal / bidang putih datar) */
+html,
+body.index-page {
+    background: color-mix(in srgb, var(--he-accent), transparent 84%);
+    margin: 0;
+}
+.main { margin-top: 0; padding-top: 0; }
+.main #hero {
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--he-accent), transparent 84%) 0%,
+        color-mix(in srgb, var(--he-accent), transparent 90%) 40%,
+        color-mix(in srgb, var(--he-accent), transparent 96%) 72%,
+        var(--background-color, #ffffff) 100%
+    ) !important;
+}
+.main #hero::before { display: none; }
+
+.main #hero .company-badge {
+    background: var(--he-accent-soft);
+    border: 1px solid color-mix(in srgb, var(--he-accent), transparent 70%);
+    border-radius: 99px;
+    padding: 8px 16px;
+    font-weight: 600;
+    color: color-mix(in srgb, var(--he-accent), #0b1f3a 55%);
+    backdrop-filter: blur(4px);
+    transition: transform .3s var(--he-ease);
+}
+.main #hero .company-badge i {
+    color: var(--he-accent);
+}
+.main #hero .company-badge:hover { transform: translateY(-2px); }
+
+.main #hero h1 { letter-spacing: -1px; }
+.main #hero .accent-text {
+    background: linear-gradient(120deg, var(--he-accent), #7c3aed);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.main #hero .hero-buttons .btn-primary {
+    border-radius: 99px;
+    padding: 12px 28px;
+    font-weight: 600;
+    box-shadow: 0 12px 26px -12px var(--he-accent);
+    transition: transform .3s var(--he-ease), box-shadow .3s var(--he-ease);
+}
+.main #hero .hero-buttons .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 38px -14px var(--he-accent);
+}
+.main #hero .hero-buttons .btn-link { font-weight: 600; }
+
+/* Ilustrasi hero — bingkai gradasi biru→ungu + efek 3D */
+.main #hero .hero-slider .swiper-slide {
+    perspective: 1100px;                    /* ruang 3D */
+}
+.main #hero .hero-frame {
+    display: inline-block;
+    padding: 6px;                           /* tebal bingkai gradasi */
+    border-radius: 26px;
+    background: linear-gradient(135deg, var(--he-accent) 0%, #7c3aed 100%);
+    box-shadow: 0 30px 60px -25px rgba(29, 66, 137, .55);
+    transform-style: preserve-3d;
+    transition: transform .18s ease-out, box-shadow .3s ease;
+    will-change: transform;
+}
+.main #hero .hero-frame-inner {
+    border-radius: 20px;
+    background: #fff;
+    padding: 6px;                           /* mat putih di dalam */
+    overflow: hidden;
+    transform: translateZ(40px);            /* foto sedikit "maju" -> kesan 3D */
+    transform-style: preserve-3d;
+}
+.main #hero .hero-frame-inner img {
+    display: block;
+    width: 100%;
+    border-radius: 15px;
+    margin: 0;
+}
+.main #hero .hero-frame:hover {
+    box-shadow: 0 40px 75px -25px rgba(29, 66, 137, .6);
+}
+
+/* ---------- Stat cards ---------- */
+.main .stats-row .stat-item {
+    background: var(--surface-color, #fff);
+    border: 1px solid rgba(16, 42, 78, .07);
+    border-radius: 18px;
+    padding: 22px 20px;
+    box-shadow: var(--he-shadow);
+    transition: transform .35s var(--he-ease), box-shadow .35s var(--he-ease);
+}
+.main .stats-row .stat-item:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--he-shadow-hover);
+}
+.main .stats-row .stat-item .stat-icon {
+    background: linear-gradient(135deg, var(--he-accent), #7c3aed);
+    border-radius: 14px;
+    width: 54px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 22px -10px var(--he-accent);
+}
+.main .stats-row .stat-item .stat-icon i {
+    color: #fff !important;
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+/* ---------- Kartu generik (skills / experience / education) ---------- */
+.main #skills .rounded-4,
+.main #experience .rounded-4,
+.main #education .rounded-4 {
+    position: relative;
+    box-shadow: var(--he-shadow);
+    transition: transform .35s var(--he-ease), box-shadow .35s var(--he-ease), border-color .35s var(--he-ease);
+    overflow: hidden;
+}
+.main #skills .rounded-4:hover,
+.main #experience .rounded-4:hover,
+.main #education .rounded-4:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--he-shadow-hover);
+    border-color: color-mix(in srgb, var(--he-accent), transparent 60%) !important;
+}
+/* garis aksen tipis di sisi kiri kartu experience/education */
+.main #experience .rounded-4::before,
+.main #education .rounded-4::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--he-accent), #7c3aed);
+    opacity: 0;
+    transition: opacity .35s var(--he-ease);
+}
+.main #experience .rounded-4:hover::before,
+.main #education .rounded-4:hover::before { opacity: 1; }
+
+/* progress bar skills lebih halus */
+.main #skills .progress { background: color-mix(in srgb, var(--he-accent), transparent 90%); border-radius: 99px; }
+.main #skills .progress-bar { border-radius: 99px; }
+
+/* ---------- Projects ---------- */
+.main #projects .service-card {
+    border-radius: 20px;
+    border: 1px solid rgba(16, 42, 78, .07);
+    box-shadow: var(--he-shadow);
+    transition: transform .35s var(--he-ease), box-shadow .35s var(--he-ease);
+    background: var(--surface-color, #fff);
+    overflow: hidden;
+}
+.main #projects .service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--he-shadow-hover);
+}
+.main #projects .service-card .icon {
+    background: linear-gradient(135deg, var(--he-accent), #7c3aed);
+    color: #fff;
+    border-radius: 14px;
+    box-shadow: 0 12px 24px -12px var(--he-accent);
+    transition: transform .35s var(--he-ease);
+}
+.main #projects .service-card:hover .icon { transform: rotate(-6deg) scale(1.05); }
+.main #projects .service-card .badge {
+    border-radius: 99px;
+    padding: .4em .8em;
+    font-weight: 500;
+}
+
+/* ---------- Certificate ---------- */
+.main #certificate .rounded-4 {
+    transition: transform .35s var(--he-ease), box-shadow .35s var(--he-ease) !important;
+}
+.main #certificate .rounded-4:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--he-shadow-hover) !important;
+}
+
+/* ---------- read-more link ---------- */
+.main .read-more { font-weight: 600; }
+.main .read-more i { transition: transform .25s var(--he-ease); }
+.main .read-more:hover i { transform: translateX(4px); }
+
+/* ---------- About ---------- */
+.main #about .about-meta {
+    color: var(--he-accent);
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+.main #about .about-title { letter-spacing: -.5px; }
+.main #about .feature-list li i { color: var(--he-accent); }

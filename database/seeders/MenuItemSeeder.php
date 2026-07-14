@@ -16,14 +16,14 @@ class MenuItemSeeder extends Seeder
         }
 
         $defaults = [
-            ['label' => 'Home',        'url' => '#hero'],
-            ['label' => 'About',       'url' => '#about'],
-            ['label' => 'Skills',      'url' => '#skills'],
-            ['label' => 'Experience',  'url' => '#experience'],
-            ['label' => 'Education',   'url' => '#education'],
-            ['label' => 'Certificate', 'url' => '#certificate'],
-            ['label' => 'Project',     'url' => '#projects'],
-            ['label' => 'Contact',     'url' => '#contact'],
+            ['label' => 'Beranda',    'url' => '#hero'],
+            ['label' => 'Tentang',    'url' => '#about'],
+            ['label' => 'Keahlian',   'url' => '#skills'],
+            ['label' => 'Pengalaman', 'url' => '#experience'],
+            ['label' => 'Pendidikan', 'url' => '#education'],
+            ['label' => 'Sertifikat', 'url' => '#certificate'],
+            ['label' => 'Proyek',     'url' => '#projects'],
+            ['label' => 'Kontak',     'url' => '#contact'],
         ];
 
         foreach ($defaults as $i => $item) {

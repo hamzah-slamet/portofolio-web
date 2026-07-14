@@ -20,7 +20,9 @@ class PortfolioConfigController extends Controller
             ['is_published' => true]
         );
 
-        return view('content.settings.index', compact('config', 'user'));
+        $heroImages = $user->heroImages()->get();
+
+        return view('content.settings.index', compact('config', 'user', 'heroImages'));
     }
 
     /**

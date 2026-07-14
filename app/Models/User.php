@@ -95,4 +95,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Certificate::class);
     }
+
+    public function heroImages(): HasMany
+    {
+        return $this->hasMany(HeroImage::class)->orderBy('sort_order')->orderBy('id');
+    }
 }

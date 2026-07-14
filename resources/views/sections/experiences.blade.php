@@ -2,8 +2,8 @@
 <section id="experience" class="services section light-background">
 
     <div class="container section-title" data-aos="fade-up">
-        <h2>Experience</h2>
-        <p>My professional journey and work experience</p>
+        <h2>Pengalaman</h2>
+        <p>Perjalanan karier dan pengalaman kerja saya</p>
     </div>
 
     <div class="container" data-aos="fade-up" data-aos-delay="100">

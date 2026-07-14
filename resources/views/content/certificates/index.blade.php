@@ -50,8 +50,8 @@
                 <input type="url" name="url" class="admin-form-control" placeholder="https://...">
             </div>
             <div class="col-md-5">
-                <label class="admin-form-label">Gambar (opsional)</label>
-                <input type="file" name="image" class="admin-form-control" accept="image/*">
+                <label class="admin-form-label">Gambar / PDF (opsional)</label>
+                <input type="file" name="image" class="admin-form-control" accept="image/*,application/pdf">
             </div>
             <div class="col-md-2 d-flex align-items-end">
                 <button type="submit" class="btn-admin-primary w-100 justify-content-center">
@@ -96,7 +96,12 @@
                 @foreach($certificates as $c)
                 <tr>
                     <td>
-                        @if($c->image)
+                        @if($c->image && \Illuminate\Support\Str::endsWith(strtolower($c->image), '.pdf'))
+                            <a href="{{ Storage::url($c->image) }}" target="_blank" rel="noopener"
+                               style="width:44px; height:44px; border-radius:8px; background:#fef2f2; color:#dc2626; display:flex; align-items:center; justify-content:center;">
+                                <i class="bi bi-file-earmark-pdf"></i>
+                            </a>
+                        @elseif($c->image)
                             <img src="{{ Storage::url($c->image) }}" alt="" style="width:44px; height:44px; object-fit:cover; border-radius:8px;">
                         @else
                             <div style="width:44px; height:44px; border-radius:8px; background:var(--blue-light); display:flex; align-items:center; justify-content:center;">
@@ -159,8 +164,8 @@
                             <input type="url" name="url" id="edit_cert_url" class="admin-form-control">
                         </div>
                         <div class="col-12">
-                            <label class="admin-form-label">Ganti Gambar (opsional)</label>
-                            <input type="file" name="image" class="admin-form-control" accept="image/*">
+                            <label class="admin-form-label">Ganti Gambar / PDF (opsional)</label>
+                            <input type="file" name="image" class="admin-form-control" accept="image/*,application/pdf">
                         </div>
                     </div>
                 </div>

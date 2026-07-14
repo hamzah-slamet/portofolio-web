@@ -43,11 +43,27 @@ class PortfolioController extends Controller
         $activeAnchors = $menuItems->pluck('url')->all();
         $show = fn (string $anchor) => in_array($anchor, $activeAnchors, true);
 
+        // Statistik hero diambil dari data yang benar-benar ada
+        $statProjects     = $user->projects()->count();
+        $statCertificates = $user->certificates()->count();
+
+        // Tahun pengalaman = dari tanggal mulai paling awal sampai sekarang
+        $firstExpStart = $user->experiences()->min('start_date');
+        $statYears = $firstExpStart
+            ? max(0, (int) \Carbon\Carbon::parse($firstExpStart)->diffInYears(now()))
+            : 0;
+
         return view('welcome', [
             'config'        => $config,
             'user'          => $user,
             'menuItems'     => $menuItems,
             'activeAnchors' => $activeAnchors,
+
+            'statProjects'     => $statProjects,
+            'statCertificates' => $statCertificates,
+            'statYears'        => $statYears,
+
+            'heroImages' => $user->heroImages()->get(),
 
             // Data hanya di-query jika section-nya aktif (berdasarkan menu)
             'skills' => $show('#skills')

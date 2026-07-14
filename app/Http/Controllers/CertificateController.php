@@ -37,6 +37,7 @@ class CertificateController extends Controller
         abort_if($certificate->user_id !== auth()->id(), 403);
 
         $data = $this->validateData($request);
+        unset($data['image']); // jangan sentuh file lama kecuali ada unggahan baru
 
         if ($request->hasFile('image')) {
             if ($certificate->image) {
@@ -69,7 +70,7 @@ class CertificateController extends Controller
             'issuer'     => 'required|string|max:255',
             'year'       => 'required|string|max:20',
             'url'        => 'nullable|url|max:500',
-            'image'      => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image'      => 'nullable|file|mimes:jpg,jpeg,png,webp,pdf|max:4096',
             'sort_order' => 'nullable|integer|min:0',
         ]);
     }

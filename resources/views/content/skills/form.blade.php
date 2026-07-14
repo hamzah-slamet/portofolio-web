@@ -77,16 +77,3 @@
     <small class="text-muted mt-1 d-block">Warna ini digunakan untuk icon, progress bar, dan persentase.</small>
 </div>
 
-{{-- Certificates --}}
-<div class="form-section">Link Sertifikat</div>
-
-<div id="{{ $prefix }}_cert_list"></div>
-
-<button type="button" class="btn-add-cert mt-1"
-        onclick="addCertField('{{ $prefix }}')">
-    <i class="bi bi-plus-circle-fill"></i> Tambah Link Sertifikat
-</button>
-<small class="text-muted d-block mt-2">
-    <i class="bi bi-mortarboard-fill" style="color:#d97706;"></i>
-    Bisa lebih dari 1 link. Contoh: Google Drive, Coursera, Dicoding, dll.
-</small>

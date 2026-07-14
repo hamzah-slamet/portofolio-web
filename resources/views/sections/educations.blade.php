@@ -2,8 +2,8 @@
 <section id="education" class="services section">
 
     <div class="container section-title" data-aos="fade-up">
-        <h2>Education</h2>
-        <p>My academic background and qualifications</p>
+        <h2>Pendidikan</h2>
+        <p>Latar belakang akademik dan kualifikasi saya</p>
     </div>
 
     <div class="container" data-aos="fade-up" data-aos-delay="100">

@@ -189,6 +189,61 @@
         </div>
     </div>
 
+    {{-- ============ ILUSTRASI HERO (MULTI-GAMBAR) ============ --}}
+    <div class="admin-card mb-5">
+        <div class="admin-card-header">
+            <h6 class="admin-card-title"><i class="bi bi-images me-2 text-primary"></i>Ilustrasi Hero (atas)</h6>
+        </div>
+        <small class="text-muted d-block mb-3">
+            Gambar ini tampil sebagai carousel di sisi kanan bagian Hero. Bisa lebih dari satu (jpg, png, webp, gif, svg).
+        </small>
+
+        {{-- Upload --}}
+        <form action="{{ route('hero-images.store') }}" method="POST" enctype="multipart/form-data"
+            class="row g-2 align-items-end mb-4">
+            @csrf
+            <div class="col-md-9">
+                <label class="admin-form-label">Pilih Gambar <small class="text-muted">(bisa banyak sekaligus)</small></label>
+                <input type="file" name="images[]" class="admin-form-control" multiple
+                    accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml" required>
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn-admin-primary w-100 justify-content-center">
+                    <i class="bi bi-upload"></i> Unggah
+                </button>
+            </div>
+        </form>
+
+        {{-- Galeri --}}
+        @if($heroImages->count())
+            <div class="row g-3">
+                @foreach($heroImages as $img)
+                    <div class="col-6 col-md-3">
+                        <div style="position:relative; border:1px solid var(--card-border,#e2e8f0); border-radius:12px; overflow:hidden; background:#f8fafc;">
+                            <img src="{{ \Illuminate\Support\Facades\Storage::url($img->image) }}" alt=""
+                                style="width:100%; height:130px; object-fit:contain; padding:10px;">
+                            <form action="{{ route('hero-images.destroy', $img) }}" method="POST"
+                                onsubmit="return confirm('Hapus ilustrasi ini?')"
+                                style="position:absolute; top:6px; right:6px;">
+                                @csrf @method('DELETE')
+                                <button type="submit" title="Hapus"
+                                        style="border:none; width:30px; height:30px; border-radius:50%; background:#fff; color:#dc2626; box-shadow:0 2px 8px rgba(0,0,0,.15); cursor:pointer;">
+                                    <i class="bi bi-trash3"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @else
+            <div class="text-center text-muted py-4" style="border:1px dashed var(--card-border,#e2e8f0); border-radius:12px;">
+                <i class="bi bi-image fs-3"></i>
+                <p class="mb-0 mt-2" style="font-size:.85rem;">Belum ada ilustrasi. Unggah gambar di atas.</p>
+            </div>
+        @endif
+    </div>
+
+
     <div class="d-flex justify-content-end gap-2 mb-5">
         <button type="submit" class="btn-admin-primary">
             <i class="bi bi-save"></i> Simpan Pengaturan

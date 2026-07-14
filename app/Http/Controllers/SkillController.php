@@ -55,14 +55,7 @@ class SkillController extends Controller
             'level'          => 'required|integer|min:0|max:100',
             'icon'           => 'nullable|string|max:100',
             'color'          => 'nullable|string|max:20',
-            'certificates'   => 'nullable|array',
-            'certificates.*' => 'nullable|url|max:500',
         ]);
-
-        $data['certificates'] = collect($request->certificates ?? [])
-            ->filter(fn($c) => !empty(trim($c)))
-            ->values()
-            ->toArray();
 
         $data['user_id']    = auth()->id();
         $data['color_fill'] = $this->generateFill($data['color'] ?? '#2563eb');
@@ -83,14 +76,7 @@ class SkillController extends Controller
             'level'          => 'required|integer|min:0|max:100',
             'icon'           => 'nullable|string|max:100',
             'color'          => 'nullable|string|max:20',
-            'certificates'   => 'nullable|array',
-            'certificates.*' => 'nullable|url|max:500',
         ]);
-
-        $data['certificates'] = collect($request->certificates ?? [])
-            ->filter(fn($c) => !empty(trim($c)))
-            ->values()
-            ->toArray();
 
         $data['color_fill'] = $this->generateFill($data['color'] ?? '#2563eb');
 

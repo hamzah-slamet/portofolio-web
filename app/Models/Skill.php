@@ -14,12 +14,10 @@ class Skill extends Model
         'icon',
         'color',
         'color_fill',
-        'certificates',
         'sort_order',
     ];
 
     protected $casts = [
-        'certificates' => 'array',
         'level'        => 'integer',
         'sort_order'   => 'integer',
     ];

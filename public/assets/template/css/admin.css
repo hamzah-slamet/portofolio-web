@@ -580,6 +580,18 @@ body.sidebar-collapsed .admin-topbar  { left: 0; border-left: none; }
 }
 
 /* =============================================================
+   TEKS DESKRIPSI RATA KIRI-KANAN (justify) DI SEMUA MENU
+   Paragraf 1 baris tidak berubah; hanya deskripsi multi-baris
+   yang jadi rapi rata kiri-kanan.
+   ============================================================= */
+.admin-main p { text-align: justify; }
+/* Deskripsi di dokumen CV (memakai div, bukan p) */
+.admin-main .cv-entry-desc { text-align: justify; }
+/* Subjudul header halaman & empty state tetap seperti semula */
+.admin-main .page-header-bar p { text-align: left; }
+.admin-main .empty-state p     { text-align: center; }
+
+/* =============================================================
    TOAST NOTIFIKASI (dipakai komponen x-toast)
    Ditaruh di sini agar CSS selalu ada di <head> — komponen di
    dalam layout tidak bisa push ke @stack('styles') tepat waktu.

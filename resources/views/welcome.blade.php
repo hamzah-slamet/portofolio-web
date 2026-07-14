@@ -15,7 +15,9 @@
     @endif
 
     @if(in_array('#experience', $activeAnchors))
+        @include('sections.wave', ['variant' => 1, 'bg' => '#ffffff', 'fill' => '#f3f9ff'])
         @include('sections.experiences')
+        @include('sections.wave', ['variant' => 2, 'bg' => '#f3f9ff', 'fill' => '#ffffff', 'flip' => true])
     @endif
 
     @if(in_array('#education', $activeAnchors))
@@ -27,7 +29,9 @@
     @endif
 
     @if(in_array('#projects', $activeAnchors))
+        @include('sections.wave', ['variant' => 3, 'bg' => '#ffffff', 'fill' => '#f3f9ff'])
         @include('sections.projects')
+        @include('sections.wave', ['variant' => 1, 'bg' => '#f3f9ff', 'fill' => '#ffffff', 'flip' => true])
     @endif
 
     @if(in_array('#contact', $activeAnchors))

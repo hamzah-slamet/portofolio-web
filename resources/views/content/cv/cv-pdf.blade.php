@@ -2,11 +2,25 @@
 <html lang="id">
 <head>
 <meta charset="utf-8">
+@php
+    // Embed foto profil sebagai base64 agar ikut ter-download di PDF
+    $fotoData = null;
+    if ($user->foto_profil) {
+        $fotoPath = storage_path('app/public/' . $user->foto_profil);
+        if (is_file($fotoPath)) {
+            $ext = strtolower(pathinfo($fotoPath, PATHINFO_EXTENSION)) ?: 'png';
+            $fotoData = 'data:image/' . $ext . ';base64,' . base64_encode(file_get_contents($fotoPath));
+        }
+    }
+@endphp
 <style>
+    @page { margin: 0; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: sans-serif; color: #1e293b; font-size: 11px; line-height: 1.5; }
+    body { font-family: sans-serif; color: #1e293b; font-size: 10.5px; line-height: 1.35; width: 100%; }
+    .body { table-layout: fixed; }
+    .body td { word-wrap: break-word; overflow-wrap: break-word; }
 
-    .header { background: #1e3a5f; color: #fff; padding: 22px 26px; }
+    .header { background: #1e3a5f; color: #fff; padding: 16px 24px; }
     .header table { width: 100%; }
     .photo { width: 74px; height: 74px; border-radius: 8px; object-fit: cover; }
     .photo-ph {
@@ -20,30 +34,41 @@
     .contacts span { margin-right: 14px; }
 
     .body { width: 100%; }
-    .col-left { width: 33%; background: #f1f5f9; padding: 18px 16px; vertical-align: top; }
-    .col-right { width: 67%; padding: 18px 20px; vertical-align: top; }
+    .col-left { width: 33%; background: #f1f5f9; padding: 14px 14px; vertical-align: top; }
+    .col-right { width: 67%; padding: 14px 18px; vertical-align: top; }
 
-    .sec { margin-bottom: 16px; }
+    .sec { margin-bottom: 9px; }
+    .sec:last-child { margin-bottom: 0; }
     .sec-title {
         font-size: 10px; font-weight: bold; text-transform: uppercase;
         letter-spacing: 1px; color: #2563eb; border-bottom: 2px solid #bfdbfe;
-        padding-bottom: 4px; margin-bottom: 8px;
+        padding-bottom: 3px; margin-bottom: 6px;
     }
 
     .info-lbl { font-size: 8.5px; text-transform: uppercase; color: #94a3b8; font-weight: bold; }
-    .info-val { font-size: 10.5px; font-weight: bold; margin-bottom: 7px; }
+    .info-val { font-size: 10.5px; font-weight: bold; margin-bottom: 5px; }
 
-    .skill { margin-bottom: 7px; }
+    .skill { margin-bottom: 5px; }
     .skill-top { font-size: 10px; font-weight: bold; color: #334155; }
     .skill-pct { color: #2563eb; float: right; }
     .bar { height: 5px; background: #e2e8f0; border-radius: 3px; margin-top: 3px; }
     .bar-fill { height: 5px; background: #2563eb; border-radius: 3px; }
 
-    .entry { margin-bottom: 12px; padding-left: 10px; border-left: 2px solid #e2e8f0; }
-    .entry-title { font-size: 11.5px; font-weight: bold; color: #0f172a; }
-    .entry-sub { font-size: 10px; font-weight: bold; color: #2563eb; }
-    .entry-period { font-size: 9px; color: #94a3b8; margin: 1px 0 3px; }
-    .entry-desc { font-size: 10px; color: #475569; }
+    .lang { margin-bottom: 7px; }
+    .dots { margin-top: 3px; }
+    .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #cbd5e1; margin-right: 3px; }
+    .dot.on { background: #2563eb; }
+    .interest {
+        display: inline-block; font-size: 8.5px; font-weight: bold; padding: 2px 7px;
+        background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd;
+        border-radius: 10px; margin: 0 3px 4px 0;
+    }
+
+    .entry { margin-bottom: 8px; padding-left: 10px; border-left: 2px solid #e2e8f0; }
+    .entry-title { font-size: 11px; font-weight: bold; color: #0f172a; }
+    .entry-sub { font-size: 9.5px; font-weight: bold; color: #2563eb; }
+    .entry-period { font-size: 8.5px; color: #94a3b8; margin: 1px 0 2px; }
+    .entry-desc { font-size: 9.5px; color: #475569; text-align: justify; line-height: 1.4; }
 
     .tag {
         display: inline-block; font-size: 8.5px; font-weight: bold; padding: 1px 6px;
@@ -61,8 +86,8 @@
         <table>
             <tr>
                 <td style="width:86px; vertical-align:middle;">
-                    @if($user->foto_profil)
-                        <img src="{{ public_path('storage/' . $user->foto_profil) }}" class="photo">
+                    @if($fotoData)
+                        <img src="{{ $fotoData }}" class="photo">
                     @else
                         <div class="photo-ph">{{ strtoupper(substr($user->name, 0, 1)) }}</div>
                     @endif
@@ -114,6 +139,25 @@
                     @empty
                         <div class="muted">Belum ada data keahlian.</div>
                     @endforelse
+                </div>
+
+                <div class="sec">
+                    <div class="sec-title">Bahasa</div>
+                    @foreach([['Indonesia','Native',5],['Inggris','Professional',4]] as $lang)
+                        <div class="lang">
+                            <div class="skill-top">{{ $lang[0] }} <span style="float:right; color:#94a3b8; font-weight:normal;">{{ $lang[1] }}</span></div>
+                            <div class="dots">
+                                @for($i=1;$i<=5;$i++)<span class="dot {{ $i <= $lang[2] ? 'on' : '' }}"></span>@endfor
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <div class="sec">
+                    <div class="sec-title">Minat</div>
+                    @foreach(['Open Source','UI/UX','Cloud','DevOps','AI/ML'] as $m)
+                        <span class="interest">{{ $m }}</span>
+                    @endforeach
                 </div>
 
             </td>

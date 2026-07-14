@@ -12,7 +12,7 @@
                     <li>
                         <a href="{{ $item->url }}"
                            @if(\Illuminate\Support\Str::startsWith($item->url, 'http')) target="_blank" rel="noopener" @endif
-                           class="{{ $i === 0 ? 'active' : '' }}">{{ $item->label }}</a>
+                           >{{ $item->label }}</a>
                     </li>
                 @empty
                     {{-- Fallback jika belum ada menu di database --}}
@@ -24,12 +24,18 @@
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
-        @guest
-            <a class="btn-getstarted" href="{{ route('login') }}">Login</a>
-        @else
-           <a></a>
-        @endguest
+
+        <div class="d-flex align-items-center gap-2">
+            {{-- Toggle bahasa ID / EN --}}
+            <button type="button" id="langToggle" class="lang-toggle notranslate" translate="no"
+                    title="Ganti bahasa / Change language">
+                <i class="bi bi-translate"></i>
+                <span id="langToggleLabel">EN</span>
+            </button>
+            @guest
+                <a class="btn-getstarted" href="{{ route('login') }}">Masuk</a>
+            @endguest
+        </div>
 
     </div>
 </header>
-`

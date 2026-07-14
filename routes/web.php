@@ -13,6 +13,7 @@ use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\PortfolioConfigController;
 use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\CertificateController;
+use App\Http\Controllers\HeroImageController;
 
 // =====================
 // PUBLIC
@@ -30,6 +31,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Pengaturan tampilan portfolio (hero, about, stats, contact, toggle section)
     Route::get('/settings',  [PortfolioConfigController::class, 'edit'])->name('settings.edit');
     Route::put('/settings',  [PortfolioConfigController::class, 'update'])->name('settings.update');
+
+    // Ilustrasi gambar hero (multi-upload)
+    Route::post('/hero-images',              [HeroImageController::class, 'store'])  ->name('hero-images.store');
+    Route::delete('/hero-images/{heroImage}', [HeroImageController::class, 'destroy'])->name('hero-images.destroy');
 
     // Menu navbar dinamis
     Route::get('/menus',            [MenuItemController::class, 'index'])->name('menus.index');

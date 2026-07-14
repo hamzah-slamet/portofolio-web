@@ -687,7 +687,7 @@
                                     <div style="font-size:.8rem; font-weight:800; color:#0f172a;">
                                         {{ $project->title }}
                                     </div>
-                                    <div style="font-size:.72rem; color:#64748b; margin-top:3px; line-height:1.6;">
+                                    <div style="font-size:.72rem; color:#64748b; margin-top:3px; line-height:1.6; text-align:justify;">
                                         {{ $project->description }}
                                     </div>
                                     @if(!empty($project->tech_stack) && is_array($project->tech_stack))

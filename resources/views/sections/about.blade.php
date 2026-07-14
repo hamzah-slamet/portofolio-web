@@ -16,8 +16,8 @@
 
             {{-- Left: About Content --}}
             <div class="col-xl-7" data-aos="fade-up" data-aos-delay="200">
-                <span class="about-meta">{{ $config->about_meta ?? 'MORE ABOUT ME' }}</span>
-                <h2 class="about-title">{{ $config->about_title ?? 'About Me' }}</h2>
+                <span class="about-meta">{{ $config->about_meta ?? 'TENTANG SAYA' }}</span>
+                <h2 class="about-title">{{ $config->about_title ?? 'Tentang Saya' }}</h2>
                 <p class="about-description">
                     {{ $user->tentang ?: 'Belum ada deskripsi. Isi di menu Profil → Tentang Saya.' }}
                 </p>
@@ -61,7 +61,7 @@
                             <div class="contact-info d-flex align-items-center gap-2">
                                 <i class="bi bi-envelope-fill"></i>
                                 <div>
-                                    <p class="contact-label">Send me an email</p>
+                                    <p class="contact-label">Kirim email ke saya</p>
                                     <p class="contact-number">{{ $config->contact_email ?? $user->email }}</p>
                                 </div>
                             </div>
@@ -83,10 +83,10 @@
                             </div>
                         @endif
                     </div>
-                    <div class="experience-badge floating">
+                    <!-- <div class="experience-badge floating">
                         <h3>{{ $config->stat_years ?? 0 }}+ <span>Years</span></h3>
                         <p>Of experience in web development</p>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
