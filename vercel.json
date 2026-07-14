@@ -13,7 +13,7 @@
     "routes": [
         {
             "src": "/assets/(.*)",
-            "dest": "/public/assets/"
+            "dest": "/public/assets/$1"
         },
         {
             "src": "/favicon.ico",
@@ -24,16 +24,8 @@
             "dest": "/public/robots.txt"
         },
         {
-            "src": "/storage/certificate/(.*)",
-            "dest": "/public/storage/certificates"
-        },
-        {
-            "src": "/storage/profile/(.*)",
-            "dest": "/public/storage/profile"
-        },
-        {
-            "src": "/storage/hero/(.*)",
-            "dest": "/public/storage/hero"
+            "src": "/storage/(.*)",
+            "dest": "/public/storage/$1"
         },
         {
             "src": "/(.*)",
