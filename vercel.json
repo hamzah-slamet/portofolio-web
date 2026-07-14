@@ -24,8 +24,16 @@
             "dest": "/public/robots.txt"
         },
         {
-            "src": "/storage/(.*)",
-            "dest": "/public/storage/$1"
+            "src": "/storage/hero/(.*)",
+            "dest": "/public/storage/hero/$1"
+        },
+        {
+            "src": "/storage/profile/(.*)",
+            "dest": "/public/storage/profile/$1"
+        },
+        {
+            "src": "/storage/certificates/(.*)",
+            "dest": "/public/storage/certificates/$1"
         },
         {
             "src": "/(.*)",
